@@ -1,6 +1,6 @@
 #!/bin/bash
 {
-  ORG=jbottein
+  ORG=jeantichoc
   APP=PegasArch
   LATEST=`wget -q -O - "https://api.github.com/repos/$ORG/$APP/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/'`
 
