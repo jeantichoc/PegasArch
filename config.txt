@@ -1,0 +1,18 @@
+# rclone configured remote to use
+CLOUD="$(rclone listremotes | head -1 | tr -d ":")"
+
+# path to sync/mount
+CLOUDDIR="$HOME/$CLOUD"
+
+# sub folder for games and saves
+ROMSDIR="Collections/Games"
+SAVDIR="Documents/RetroArch"
+
+# login:password for https://www.screenscraper.fr
+SCREENSCRAPER_LOGIN="jeantichoc:jb4723"
+
+# scraper language
+LANG="fr"
+REGION="fr"
+
+PEGASUSCONF="$HOME/.var/app/org.pegasus_frontend.Pegasus/config/pegasus-frontend"
