@@ -1,18 +1,12 @@
-# rclone configured remote to use
-CLOUD="$(rclone listremotes | head -1 | tr -d ":")"
-
-# path to sync/mount
-CLOUDDIR="$HOME/$CLOUD"
-
-# sub folder for games and saves
-ROMSDIR="Collections/Games"
-SAVDIR="Documents/RetroArch"
-
 # login:password for https://www.screenscraper.fr
-SCREENSCRAPER_LOGIN=""
+screenscraper_login=""
+scraper_lang=fr
+scraper_region=fr
 
-# scraper language
-LANG="fr"
-REGION="fr"
+emulator_saves=$HOME/OneDrive/Documents/Retroarch
+emulator_cloud_saves=OneDrive:Documents/Retroarch
 
-PEGASUSCONF="$HOME/.var/app/org.pegasus_frontend.Pegasus/config/pegasus-frontend"
+
+# ID            | skyscraper  | retroarch core           | rom path                                  | rclone path                               | rclone mode |
+################################################################################################################################################################
+Super Nintendo  | snes        | bsnes_mercury_balanced   | $HOME/OneDrive/Collections/Super Nintendo | OneDrive:Collections/Games/Super Nintendo | sync        |

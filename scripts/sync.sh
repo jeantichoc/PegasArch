@@ -3,8 +3,8 @@ SCRIPT="$(readlink -f "$0")"
 SCRIPTPATH="$(dirname "$SCRIPT")"
 . "$SCRIPTPATH/../init/init.sh"
 
-getGamesToSync | while read -r PLATFORM; do
+get_ids_to_sync | while read -r PLATFORM; do
   rcloneSync "$ROMSDIR/$PLATFORM"
 done
 
-rcloneBiSync "$SAVDIR"
+rclone_bisync "$SAVDIR"

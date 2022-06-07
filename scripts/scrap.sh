@@ -1,30 +1,39 @@
 #!/bin/bash
 SCRIPT="$(readlink -f "$0")"
 SCRIPTPATH="$(dirname "$SCRIPT")"
-. "$SCRIPTPATH/../init/init.sh"
+source "$SCRIPTPATH/../init/init.sh"
 
-FILTER=$1
+if [[ -z $screenscraper_login ]] ; then
+  echo "Screenscraper login:password not set in config.txt"
+  exit 1
+fi
 
-if [[ -z $FILTER ]] ; then
-  rm -rf $PEGASUSCONF/metafiles
+if [[ $frontend != pegasus ]] ; then
+  echo "Only pegasus is compatible right now"
+  exit 2
+fi
+
+param_filter=$1
+if [[ -z $param_filter ]] ; then
+  rm -rf $frontend_conf/metafiles
 fi
 
 function scrap(){
-    local PLATFORM="$1"
-    if [[ "$FILTER" && "$FILTER" != "$PLATFORM" ]] ; then
-      echo skipping $PLATFORM
+    local platform="$1"
+    if [[ "$param_filter" && "$param_filter" != "$platform" ]] ; then
+      echo skipping $platform
       return
     fi
-    local FOLDER="$2"
-    local META="$PEGASUSCONF/metafiles/$PLATFORM"
-    $SCRAPCMD $SCREENSCRAPER -p "$PLATFORM" -i "$FOLDER" --lang $LANG --region $REGION
-    mkdir -p "$META"
-    $SCRAPCMD -f "$FRONTEND" -o "$META" -g "$META" -p "$PLATFORM" -a "$ARTWORK" -e "$LAUNCHER" -i "$FOLDER" --lang $LANG --region $REGION
-    mv "$META/metadata.pegasus.txt" "$PEGASUSCONF/metafiles/$PLATFORM.metadata.pegasus.txt"
+    local folder="$2"
+    local metadir="$frontend_conf/metafiles/$platform"
+    $scraper_cmd $screenscraper -p "$platform" -i "$folder" --lang $scraper_lang --region $REGION
+    mkdir -p "$metadir"
+    $scraper_cmd -f "$frontend" -o "$metadir" -g "$metadir" -p "$platform" -a "$ARTWORK" -e "$scraper_launcher" -i "$folder" --lang $scraper_lang --region $REGION
+    mv "$metadir/metadata.pegasus.txt" "$frontend_conf/metafiles/$platform.metadata.pegasus.txt"
 }
 
-getGames | while read -r PLATFORM; do
-  scrap $(getScraperCode "$PLATFORM") "$CLOUDDIR/$ROMSDIR/$PLATFORM"
+get_all_ids | while read -r platform; do
+  scrap $(get_scraper "$platform") $(getPath "$platform")
 done
 
 echo $ARTWORK

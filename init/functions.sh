@@ -1,28 +1,40 @@
-GAMESCONF="${SCRIPTPATH:-.}/../games.txt"
+pa_conf="${SCRIPTPATH:-.}/../config.txt"
+columm_id=1
+columm_scraper=2
+columm_core=3
+columm_path=4
+columm_cloud=4
 
-function getConf(){
-  grep -v "^#" "$GAMESCONF" | grep -Ei "^ *$1 *\|"
+function get_conf(){
+  grep -v "^#" "$pa_conf" | grep "|" | grep -Ei "^ *$1 *\|"
 }
 
-function getGames(){
-  grep -v "^#" "$GAMESCONF" | cut -d '|' -f 1 | trim
+function get_all_ids(){
+  grep -v "^#" "$pa_conf" | grep "|" | cut -d '|' -f 1 | trim
 }
 
-
-function getGamesToSync(){
-  grep -v "^#" "$GAMESCONF" | grep -Ei "\| *sync *\|" | cut -d '|' -f 1 | trim
+function get_ids_to_sync(){
+  grep -v "^#" "$pa_conf" | grep -Ei "\| *sync *\|" | cut -d '|' -f $columm_id | trim
 }
 
-function getGamesToMount(){
-  grep -v "^#" "$GAMESCONF" | grep -Ei "\| *mount *\|" | cut -d '|' -f 1 | trim
+function get_ids_to_mount(){
+  grep -v "^#" "$pa_conf" | grep -Ei "\| *mount *\|" | cut -d '|' -f $columm_id | trim
 }
 
-function getScraperCode(){
-  getConf "$1"  | cut -d '|' -f 3 | trim
+function get_field(){
+  get_conf "$1"  | cut -d '|' -f "$2" | trim
 }
 
-function getCore(){
-  getConf "$1"  | cut -d '|' -f 4 | trim
+function get_scraper(){
+  get_field "$1" $columm_scraper
+}
+
+function get_path(){
+  get_field "$1" $columm_path
+}
+
+function get_core(){
+  get_field "$1" $columm_core
 }
 
 function trim(){
@@ -38,7 +50,7 @@ function rcloneSync(){
   rclone sync "$CLOUD:$FOLDER" "$CLOUDDIR/$FOLDER"
 }
 
-function rcloneBiSync(){
+function rclone_bisync(){
   local FOLDER="$1"
   local RESYNC=""
   if [[ ! -d "$CLOUDDIR/$FOLDER" ]] ; then
@@ -49,7 +61,7 @@ function rcloneBiSync(){
   rclone bisync "$CLOUD:$FOLDER" "$CLOUDDIR/$FOLDER" $RESYNC
 }
 
-function rcloneMount(){
+function rclone_mount(){
   local FOLDER="$1"
   local OPTIONS="--allow-other --read-only --vfs-cache-mode writes --allow-root --daemon-timeout=10s --daemon"
   mkdir -p "$CLOUDDIR/$FOLDER"

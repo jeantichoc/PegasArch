@@ -15,7 +15,7 @@ function findCore(){
   echo DIR "$DIRNAME" >> $LOG
   local BASENAME="$(basename "$DIRNAME")"
   echo CONSOLE "$BASENAME" >> $LOG
-  local core="$(getCore "$BASENAME")"
+  local core="$(get_core "$BASENAME")"
   if [[ $core ]] ; then
     echo "$core"
   else
@@ -39,4 +39,4 @@ fi
 echo retroarch -f -L $CORE "$1" --appendconfig $CONF
 retroarch -f -L $CORE "$1" --appendconfig $CONF >> $LOG 2>&1
 
-rcloneBiSync "$SAVDIR" & >> $LOG 2>&1
+rclone_bisync "$SAVDIR" & >> $LOG 2>&1

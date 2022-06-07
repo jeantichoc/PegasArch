@@ -1,13 +1,10 @@
-
+eval $(cat ${SCRIPTPATH:-.}/../config.txt  | sed -e '/#########/,$d')
 source "${SCRIPTPATH:-.}/../init/functions.sh"
-source "${SCRIPTPATH:-.}/../config.txt"
-
 
 ##### ADDITONALS CONFIGURATIONS ####
-SCREENSCRAPER="-s screenscraper -u $SCREENSCRAPER_LOGIN"
-FRONTEND="pegasus"
-SCRAPCMD="$HOME/GitHub/skyscraper/Skyscraper"
-LAUNCHER="$SCRIPTPATH/launch.sh \"{file.path}\""
+frontend_conf="$HOME/.var/app/org.pegasus_frontend.Pegasus/config/pegasus-frontend"
+scraper_cmd="$HOME/GitHub/skyscraper/Skyscraper"
+scraper_launcher="$SCRIPTPATH/launch.sh \"{file.path}\""
 ARTWORK="$(realpath "$SCRIPTPATH/../resources/artwork.xml")"
 
 SAVDIRCLOUD="$CLOUDDIR/$SAVDIR"
