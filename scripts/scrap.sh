@@ -49,7 +49,8 @@ function scrap(){
       -e "$scraper_launcher" \
       -i "$folder"            \
       --lang $scraper_lang     \
-      --region $scraper_region
+      --region $scraper_region  \
+      --flags unattend
 
     mkdir $frontend_conf/metafiles
     ln -sf "$metadir/metadata.pegasus.txt" "$frontend_conf/metafiles/$name.metadata.pegasus.txt"
