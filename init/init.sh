@@ -1,4 +1,4 @@
-eval $(cat ${SCRIPTPATH:-.}/../config.txt  | sed -e '/#########/,$d')
+eval $(cat ${SCRIPTPATH:-.}/../config.txt  | sed -e '/#########/,$d' | grep -v "^#"  )
 source "${SCRIPTPATH:-.}/../init/functions.sh"
 
 ##### ADDITONALS CONFIGURATIONS ####
