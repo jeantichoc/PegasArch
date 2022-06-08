@@ -9,4 +9,4 @@ emulator_cloud_saves=OneDrive:Documents/Retroarch
 
 # ID            | skyscraper  | retroarch core           | rom path                                  | rclone path                               | rclone mode |
 ################################################################################################################################################################
-Super Nintendo  | snes        | bsnes_mercury_balanced   | $HOME/Nintendo                            | OneDrive:Collections/Games/Nintendo       | sync        |
+Super Nintendo  | snes        | nestopia                 | $HOME/Nintendo                            | OneDrive:Collections/Games/Nintendo       | sync        |

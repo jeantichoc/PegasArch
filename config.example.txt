@@ -1,14 +1,23 @@
 # login:password for https://www.screenscraper.fr
-scraper_login=""
+screenscraper_login=""
 scraper_lang=fr
 scraper_region=fr
 
 emulator_saves=$HOME/OneDrive/Documents/Retroarch
 emulator_cloud_saves=OneDrive:Documents/Retroarch
 
-frontend=pegasus
-frontend_conf=$HOME/.var/app/org.pegasus_frontend.Pegasus/config/pegasus-frontend
 
-# label         | skyscraper  | retroarch core           | rom path                                  | rclone path                               | rclone mode |
-###############################################################################################################################################################
-Super Nintendo  | snes        | bsnes_mercury_balanced   | $HOME/OneDrive/Collections/Super Nintendo | OneDrive:Collections/Games/Super Nintendo | sync        |
+# ID             | skyscraper   | retroarch core           | rom path                                  | rclone path                               | rclone mode |
+################################################################################################################################################################
+Super Nintendo   | snes         | bsnes_mercury_balanced   | $HOME/Games/Super Nintendo                | OneDrive:Collections/Games/               | sync        |
+Game Boy         | gb           | gambatte                 | $HOME/Games/                              | OneDrive:Collections/Games/               | sync        |
+Game Boy Color   | gbc          | gambatte                 | $HOME/Games/                              | OneDrive:Collections/Games/               | sync        |
+Game Boy Advance | gba          | mgba                     | $HOME/Games/                              | OneDrive:Collections/Games/               | sync        |
+Nintendo 64      | n64          | mupen64plus_next         | $HOME/Games/                              | OneDrive:Collections/Games/               | sync        |
+Nintendo         | nes          | nestopia                 | $HOME/Games/                              | OneDrive:Collections/Games/               | sync        |
+Master System    | mastersystem | picodrive                | $HOME/Games/                              | OneDrive:Collections/Games/               | sync        |
+Game Gear        | gamegear     | picodrive                | $HOME/Games/                              | OneDrive:Collections/Games/               | sync        |
+Playstation      | psx          | duckstation              | $HOME/Games/                              | OneDrive:Collections/Games/               | sync        |
+#Playstation 2   | ps2          | pcsx2                    | $HOME/Games/                              | OneDrive:Collections/Games/               | sync        |
+#GameCube        | gc           | dolphin                  | $HOME/Games/                              | OneDrive:Collections/Games/               | sync        |
+Saturn           | saturn       | mednafen_saturn          | $HOME/Games/                              | OneDrive:Collections/Games/               | sync        |
