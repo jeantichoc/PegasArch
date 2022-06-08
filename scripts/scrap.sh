@@ -22,7 +22,7 @@ function scrap(){
     local name="$1"
     local platform="$2"
     local folder="$3"
-    local metadir="$frontend_conf/metafiles/$name"
+    local metadir="$SCRIPTPATH/../metadatas/$name"
 
     if [[ "$param_filter" && "$param_filter" != "$name" ]] ; then
       echo skipping $name
