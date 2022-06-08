@@ -26,6 +26,11 @@ sudo apt-get --assume-yes install qt5-default      || handle_error "install qt5-
 sudo apt-get --assume-yes install rclone           || handle_error "install rclone"
 
 
+##### RetroArch
+sudo add-apt-repository ppa:libretro/stable
+sudo apt-get --assume-yes install retroarch        || handle_error "install retroarch"
+
+
 ##### XOW (Xbox GamePad)
 mkdir -p $HOME/GitHub
 cd $HOME/GitHub
