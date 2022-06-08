@@ -19,21 +19,39 @@ if [[ -z $param_filter ]] ; then
 fi
 
 function scrap(){
-    local platform="$1"
-    if [[ "$param_filter" && "$param_filter" != "$platform" ]] ; then
-      echo skipping $platform
+    local name="$1"
+    local platform="$2"
+    local folder="$3"
+    local metadir="$frontend_conf/metafiles/$name"
+
+    if [[ "$param_filter" && "$param_filter" != "$name" ]] ; then
+      echo skipping $name
       return
     fi
-    local folder="$2"
-    local metadir="$frontend_conf/metafiles/$platform"
-    $scraper_cmd $screenscraper -p "$platform" -i "$folder" --lang $scraper_lang --region $REGION
+
     mkdir -p "$metadir"
-    $scraper_cmd -f "$frontend" -o "$metadir" -g "$metadir" -p "$platform" -a "$ARTWORK" -e "$scraper_launcher" -i "$folder" --lang $scraper_lang --region $REGION
-    mv "$metadir/metadata.pegasus.txt" "$frontend_conf/metafiles/$platform.metadata.pegasus.txt"
+
+    $scraper_cmd        \
+      $screenscraper     \
+      -p "$platform"      \
+      -i "$folder"         \
+      --lang $scraper_lang  \
+      --region $scraper_region
+
+    $scraper_cmd       \
+      -f "$frontend"    \
+      -o "$metadir"      \
+      -g "$metadir"       \
+      -p "$platform"       \
+      -a "$ARTWORK"         \
+      -e "$scraper_launcher" \
+      -i "$folder"            \
+      --lang $scraper_lang     \
+      --region $scraper_region
+
+    mv "$metadir/metadata.pegasus.txt" "$frontend_conf/metafiles/$name.metadata.pegasus.txt"
 }
 
-get_all_ids | while read -r platform; do
-  scrap $(get_scraper "$platform") $(getPath "$platform")
+get_all_ids | while read -r platform_id; do
+  scrap "$platform_id" $(get_scraper "$platform_id") $(getPath "$platform_id")
 done
-
-echo $ARTWORK
