@@ -50,7 +50,8 @@ function scrap(){
       --lang $scraper_lang     \
       --region $scraper_region
 
-    mv "$metadir/metadata.pegasus.txt" "$frontend_conf/metafiles/$name.metadata.pegasus.txt"
+    mkdir $frontend_conf/metafiles
+    ln -sf "$metadir/metadata.pegasus.txt" "$frontend_conf/metafiles/$name.metadata.pegasus.txt"
 }
 
 get_all_ids | while read -r platform_id; do
