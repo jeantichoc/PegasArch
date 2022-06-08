@@ -27,8 +27,11 @@
   wget -N "https://github.com/$ORG/$APP/archive/${LATEST}.tar.gz" || handle_error "fetch"
 
   echo "--- Unpacking ---"
+  cp -p config.txt .config.txt 2>/dev/null
   tar xvzf $LATEST.tar.gz --strip-components 1 --overwrite || handle_error "unpack"
   rm $LATEST.tar.gz
+
+  mv .config.txt config.txt 2>/dev/null
 
 
   echo "--- Cleaning out old build if one exists ---"
