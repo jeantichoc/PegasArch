@@ -22,7 +22,7 @@ function scrap(){
     local name="$1"
     local platform="$2"
     local folder="$3"
-    local metadir="$SCRIPTPATH/../metadatas/$name"
+    local metadir="$(realpath "$SCRIPTPATH/../metadatas/$name")"
 
     if [[ "$param_filter" && "$param_filter" != "$name" ]] ; then
       echo skipping $name
@@ -31,11 +31,12 @@ function scrap(){
 
     mkdir -p "$metadir"
 
-    $scraper_cmd        \
-      $screenscraper     \
-      -p "$platform"      \
-      -i "$folder"         \
-      --lang $scraper_lang  \
+    $scraper_cmd            \
+      -s screenscraper       \
+      -u $screenscraper_login \
+      -p "$platform"           \
+      -i "$folder"              \
+      --lang $scraper_lang       \
       --region $scraper_region
 
     $scraper_cmd       \
