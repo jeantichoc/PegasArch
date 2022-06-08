@@ -22,7 +22,8 @@ function get_ids_to_mount(){
 }
 
 function get_field(){
-  get_conf "$1"  | cut -d '|' -f "$2" | trim
+  local var="$(get_conf "$1"  | cut -d '|' -f "$2" | trim)"
+  eval echo $var
 }
 
 function get_scraper(){
