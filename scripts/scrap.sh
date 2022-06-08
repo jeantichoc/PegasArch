@@ -54,5 +54,5 @@ function scrap(){
 }
 
 get_all_ids | while read -r platform_id; do
-  scrap "$platform_id" $(get_scraper "$platform_id") $(getPath "$platform_id")
+  scrap "$platform_id" $(get_scraper "$platform_id") $(get_path "$platform_id")
 done
