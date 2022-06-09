@@ -37,7 +37,7 @@
   echo "--- Cleaning out old build if one exists ---"
 
   echo "--- Installing $APP v.$LATEST ---"
-  bash init/install.sh || handle_error "install"
+  #bash init/install.sh || handle_error "install"
   echo "--- $APP has been updated to v.$LATEST ---"
 
   exit 0
