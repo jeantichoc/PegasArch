@@ -37,8 +37,7 @@ function scrap(){
       -p "$platform"           \
       -i "$folder"              \
       --lang $scraper_lang       \
-      --region $scraper_region    \
-      --flags unpack
+      --region $scraper_region
 
     $scraper_cmd       \
       -f "$frontend"    \
