@@ -95,7 +95,7 @@ function find_core_file(){
 }
 
 
-function get_or_install_core(){
+function get_or_install_core_sub(){
   local id="$1"
   local core
 
@@ -108,9 +108,13 @@ function get_or_install_core(){
   core_file="$(find_core_file "$core")"
   if [[ ! -f $core_file ]] ; then
     sudo apt-get --assume-yes install libretro-$core
-    sleep 2
     core_file="$(find_core_file "$core")"
   fi
 
   echo ${core_file:-${core}}
+}
+
+
+function get_or_install_core(){
+  get_or_install_core_sub "$1" | tail -1
 }
