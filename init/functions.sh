@@ -71,24 +71,6 @@ function rclone_mount(){
 }
 
 
-
-function get_core_for_file(){
-  local dirname="$(dirname "$1")"
-  if [[ $dirname == "/" || $dirname == ""  ]] ; then
-    echo ""
-    return
-  fi
-  local basename="$(basename "$dirname")"
-  local core="$(get_core "$basename")"
-  if [[ $core ]] ; then
-    echo "$core"
-    return
-  fi
-  find_core "$dirname"
-}
-
-
-
 function find_core_file(){
   local core="$1"
   local file
@@ -110,4 +92,24 @@ function find_core_file(){
     echo $file
     return
   fi
+}
+
+
+function get_or_install_core(){
+  local id="$1"
+  local core
+
+  core="$(get_core "$id")"
+  if [[ -z $core ]] ; then
+    echo "[ERROR] No core found for $1"
+    return 1
+  fi
+
+  core_file="$(find_core_file "$core")"
+  if [[ ! -f $core_file ]] ; then
+    sudo apt-get --assume-yes install libretro-$core
+    core_file="$(find_core_file "$core")"
+  fi
+
+  echo ${core_file:-${core}}
 }

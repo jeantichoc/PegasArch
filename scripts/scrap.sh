@@ -23,11 +23,16 @@ function scrap(){
     local platform="$2"
     local folder="$3"
     local metadir="$(realpath "$SCRIPTPATH/../metadatas/$name")"
+    local scraper_launcher
+    local core
 
     if [[ "$param_filter" && "$param_filter" != "$name" ]] ; then
       echo skipping $name
       return
     fi
+
+    core="$(get_or_install_core $name)"
+    scraper_launcher="$SCRIPTPATH/launch.sh \"{file.path}\" $core"
 
     mkdir -p "$metadir"
 
@@ -44,7 +49,7 @@ function scrap(){
       -o "$metadir"      \
       -g "$metadir"       \
       -p "$platform"       \
-      -a "$ARTWORK"         \
+      -a "$scraper_artwork" \
       -e "$scraper_launcher" \
       -i "$folder"            \
       --lang $scraper_lang     \
