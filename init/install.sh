@@ -28,6 +28,7 @@ sudo apt-get --assume-yes install rclone           || handle_error "install rclo
 
 ##### RetroArch
 sudo add-apt-repository ppa:libretro/stable
+sudo add-apt-repository ppa:libretro/testing
 sudo apt-get --assume-yes install retroarch        || handle_error "install retroarch"
 
 
