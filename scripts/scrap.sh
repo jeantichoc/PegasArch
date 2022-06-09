@@ -22,7 +22,7 @@ function scrap(){
     local name="$1"
     local platform="$2"
     local folder="$3"
-    local metadir="$(realpath "$SCRIPTPATH/../metadatas/$name")"
+    local metadir="$SCRIPTPATH/../metadatas/$name"
     local scraper_launcher
     local core
 
@@ -30,6 +30,9 @@ function scrap(){
       echo skipping $name
       return
     fi
+
+    mkdir -p "$metadir"
+    metadir="$(realpath "$metadir")"
 
     core="$(get_or_install_core $name)"
     scraper_launcher="$SCRIPTPATH/launch.sh \"{file.path}\" $core"
