@@ -87,7 +87,7 @@ function find_core_file(){
     return
   fi
 
-  file=$(dpkg -L libretro-$core | grep ${core}_libretro.so)
+  file=$(dpkg -L libretro-$core 2>/dev/null | grep ${core}_libretro.so)
   if [[ -f $file ]] ; then
     echo $file
     return
