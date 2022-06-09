@@ -16,7 +16,7 @@ function setSavConf(){
 
 function get_or_install_core(){
   core="$(get_core_for_file "$1")"
-  if [[ -z $CORE ]] ; then
+  if [[ -z $core ]] ; then
     echo "[ERROR] No core found for $1"
     exit 1
   fi
@@ -35,6 +35,6 @@ function get_or_install_core(){
 core="$(get_or_install_core "$1")"
 
 echo "$retroarch_cmd -f -L \"$core\" \"$1\" --appendconfig $CONF"
-retroarch_cmd -f -L "$core" "$1" >> $LOG 2>&1
+$retroarch_cmd -f -L "$core" "$1" >> $LOG 2>&1
 
 #rclone_bisync "$SAVDIR" & >> $LOG 2>&1
