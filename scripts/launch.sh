@@ -20,6 +20,6 @@ mkdir -p $emulator_saves
 mkdir -p $emulator_states
 
 echo "$retroarch_cmd -f -L \"$core\" \"$1\" --appendconfig $retroarch_superconf"
-$retroarch_cmd -f -L "$core" "$1" >> $LOG 2>&1
+$retroarch_cmd -f -L "$core" "$1" --appendconfig $retroarch_superconf >> $LOG 2>&1
 
 #rclone_bisync "$SAVDIR" & >> $LOG 2>&1
