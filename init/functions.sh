@@ -69,3 +69,45 @@ function rclone_mount(){
   echo rclone mount "$CLOUD:$FOLDER" "$CLOUDDIR/$FOLDER" $OPTIONS
   rclone mount "$CLOUD:$FOLDER" "$CLOUDDIR/$FOLDER" $OPTIONS
 }
+
+
+
+function get_core_for_file(){
+  local dirname="$(dirname "$1")"
+  if [[ $dirname == "/" || $dirname == ""  ]] ; then
+    echo ""
+    return
+  fi
+  local basename="$(basename "$dirname")"
+  local core="$(get_core "$basename")"
+  if [[ $core ]] ; then
+    echo "$core"
+    return
+  fi
+  find_core "$dirname"
+}
+
+
+
+function find_core_file(){
+  local core="$1"
+  local file
+
+  file="$HOME/.config/retroarch/cores/${core}_libretro.so"
+  if [[ -f $file ]] ; then
+    echo $file
+    return
+  fi
+
+  file="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/cores/${core}_libretro.so"
+  if [[ -f $file ]] ; then
+    echo $file
+    return
+  fi
+
+  file=$(dpkg -L libretro-$core | grep ${core}_libretro.so)
+  if [[ -f $file ]] ; then
+    echo $file
+    return
+  fi
+}

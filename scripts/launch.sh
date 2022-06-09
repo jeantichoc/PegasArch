@@ -6,37 +6,35 @@ SCRIPTPATH="$(dirname "$SCRIPT")"
 LOG="$SCRIPTPATH/../launcher.log"
 CONF="$SCRIPTPATH/../resources/retroarch.conf"
 
-function findCore(){
-  local DIRNAME="$(dirname "$1")"
-  if [[ $DIRNAME == "/" || $DIRNAME == ""  ]] ; then
-    echo ""
-    return
-  fi
-  echo DIR "$DIRNAME" >> $LOG
-  local BASENAME="$(basename "$DIRNAME")"
-  echo CONSOLE "$BASENAME" >> $LOG
-  local core="$(get_core "$BASENAME")"
-  if [[ $core ]] ; then
-    echo "$core"
-  else
-    findCore "$DIRNAME"
-  fi
-}
+
+echo $* > $LOG
 
 function setSavConf(){
   echo  "savefile_directory = \"$SAVDIRCLOUD\"" > $CONF
   echo "savestate_directory = \"$SAVDIRCLOUD\"" >> $CONF
 }
 
-echo $* > $LOG
+function get_or_install_core(){
+  core="$(get_core_for_file "$1")"
+  if [[ -z $CORE ]] ; then
+    echo "[ERROR] No core found for $1"
+    exit 1
+  fi
 
-CORE=$(findCore "$1")
-if [[ -z $CORE ]] ; then
-  echo "[ERROR] No core found for $1"
-  exit 1
-fi
+  core_file="$(find_core_file "$core")"
+  if [[ ! -f $core_file ]] ; then
+    sudo apt-get --assume-yes install libretro-$core
+    core_file="$(find_core_file "$core")"
+  fi
 
-echo retroarch -f -L $CORE "$1" --appendconfig $CONF
-retroarch -f -L $CORE "$1" --appendconfig $CONF >> $LOG 2>&1
+  echo ${core_file:-${core}}
+}
 
-rclone_bisync "$SAVDIR" & >> $LOG 2>&1
+
+
+core="$(get_or_install_core "$1")"
+
+echo "$retroarch_cmd -f -L \"$core\" \"$1\" --appendconfig $CONF"
+retroarch_cmd -f -L "$core" "$1" >> $LOG 2>&1
+
+#rclone_bisync "$SAVDIR" & >> $LOG 2>&1
