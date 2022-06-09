@@ -3,10 +3,12 @@ screenscraper_login=""
 scraper_lang=fr
 scraper_region=fr
 
-emulator_saves=$HOME/OneDrive/Documents/Retroarch
-emulator_cloud_saves=OneDrive:Documents/Retroarch
+emulator_saves=$HOME/OneDrive/Documents/Retroarch/saves
+emulator_states=$HOME/OneDrive/Documents/Retroarch/states
+emulator_cloud_saves=OneDrive:Documents/Retroarch/saves
+emulator_cloud_states=OneDrive:Documents/Retroarch/states
 
 
 # ID            | skyscraper  | retroarch core           | rom path                                  | rclone path                               | rclone mode |
 ################################################################################################################################################################
-Super Nintendo  | snes        | nestopia                 | $HOME/Nintendo                            | OneDrive:Collections/Games/Nintendo       | sync        |
+ Nintendo       | nes        | nestopia                  | $HOME/Nintendo                            | OneDrive:Collections/Games/Nintendo       | sync        |

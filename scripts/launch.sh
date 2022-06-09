@@ -11,12 +11,15 @@ core="$2"
 
 echo $* > $LOG
 
-function setSavConf(){
-  echo  "savefile_directory = \"$SAVDIRCLOUD\"" > $CONF
-  echo "savestate_directory = \"$SAVDIRCLOUD\"" >> $CONF
+function configure_retroarch(){
+  sed "s|^savefile_directory *=.*|savefile_directory = $emulator_saves|"   -i $retroarch_superconf
+  sed "s|^savestate_directory *=.*|savestate_directory = $emulator_states|" -i $retroarch_superconf
 }
 
-echo "$retroarch_cmd -f -L \"$core\" \"$1\" --appendconfig $CONF"
+mkdir -p $emulator_saves
+mkdir -p $emulator_states
+
+echo "$retroarch_cmd -f -L \"$core\" \"$1\" --appendconfig $retroarch_superconf"
 $retroarch_cmd -f -L "$core" "$1" >> $LOG 2>&1
 
 #rclone_bisync "$SAVDIR" & >> $LOG 2>&1

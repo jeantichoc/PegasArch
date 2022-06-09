@@ -7,6 +7,7 @@ frontend_conf="$HOME/.var/app/org.pegasus_frontend.Pegasus/config/pegasus-fronte
 scraper_cmd="$HOME/GitHub/skyscraper/Skyscraper"
 scraper_launcher="$SCRIPTPATH/launch.sh \"{file.path}\""
 retroarch_cmd=retroarch
+retroarch_superconf="$(realpath "$SCRIPTPATH/../resources/retroarch.conf")"
 scraper_artwork="$(realpath "$SCRIPTPATH/../resources/artwork.xml")"
 
 SAVDIRCLOUD="$CLOUDDIR/$SAVDIR"
