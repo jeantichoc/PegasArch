@@ -24,7 +24,7 @@ sudo apt-get --assume-yes install curl             || handle_error "install curl
 sudo apt-get --assume-yes install git              || handle_error "install git"
 sudo apt-get --assume-yes install qt5-default      || handle_error "install qt5-default"
 sudo apt-get --assume-yes install rclone           || handle_error "install rclone"
-sudo apt-get --assume-yes install p7zip-full       || handle_error "install p7zip-full"
+#sudo apt-get --assume-yes install p7zip-full       || handle_error "install p7zip-full"
 
 ##### RetroArch
 sudo add-apt-repository ppa:libretro/stable
@@ -32,14 +32,16 @@ sudo apt-get --assume-yes install retroarch        || handle_error "install retr
 
 
 ##### XOW (Xbox GamePad)
-mkdir -p $HOME/GitHub
-cd $HOME/GitHub
-git clone https://github.com/medusalix/xow
-cd xow
-make BUILD=RELEASE
-sudo make install
-sudo systemctl enable xow
-sudo systemctl start xow
+if [[ -z $(systemctl | grep xow.service) ]] ; then
+  mkdir -p $HOME/GitHub
+  cd $HOME/GitHub
+  git clone https://github.com/medusalix/xow
+  cd xow
+  make BUILD=RELEASE
+  sudo make install
+  sudo systemctl enable xow
+  sudo systemctl start xow
+fi
 
 
 
