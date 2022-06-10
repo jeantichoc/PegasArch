@@ -12,8 +12,8 @@ core="$2"
 echo $* > $LOG
 
 function configure_retroarch(){
-  sed "s|^savefile_directory *=.*|savefile_directory = $emulator_saves|"   -i $retroarch_superconf
-  sed "s|^savestate_directory *=.*|savestate_directory = $emulator_states|" -i $retroarch_superconf
+  sed "s|^savefile_directory *= *PEGASARCH *|savefile_directory = $emulator_saves|"   -i $retroarch_superconf
+  sed "s|^savestate_directory *= *PEGASARCH *|savestate_directory = $emulator_states|" -i $retroarch_superconf
 }
 
 mkdir -p $emulator_saves
