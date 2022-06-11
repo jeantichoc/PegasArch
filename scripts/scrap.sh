@@ -4,12 +4,12 @@ SCRIPTPATH="$(dirname "$SCRIPT")"
 source "$SCRIPTPATH/../init/init.sh"
 
 if [[ -z $screenscraper_login ]] ; then
-  echo "Screenscraper login:password not set in config.txt"
+  echo.red "Screenscraper login:password not set in config.txt"
   exit 1
 fi
 
 if [[ $frontend != pegasus ]] ; then
-  echo "Only pegasus is compatible right now"
+  echo.red "Only pegasus is compatible right now"
   exit 2
 fi
 
@@ -39,6 +39,7 @@ function scrap(){
     core="$(get_or_install_core $name)"
     scraper_launcher="$SCRIPTPATH/launch.sh \"{file.path}\" $core"
 
+    echo.green "getting metadas from screenscraper"
     $scraper_cmd            \
       -s screenscraper       \
       -u $screenscraper_login \
@@ -47,6 +48,8 @@ function scrap(){
       --lang $scraper_lang       \
       --region $scraper_region
 
+
+    echo.green "generate metadas file for pegasus"
     $scraper_cmd       \
       -f "$frontend"    \
       -o "$metadir"      \

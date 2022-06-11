@@ -5,6 +5,14 @@ columm_core=3
 columm_path=4
 columm_cloud=4
 
+function echo.red(){
+  echo -e "\e[1;31m$*"
+}
+
+function echo.green(){
+  echo -e "\e[1;32m$*"
+}
+
 function get_conf(){
   grep -v "^#" "$pa_conf" | grep "|" | grep -Ei "^ *$1 *\|"
 }
