@@ -13,12 +13,12 @@ if [[ $frontend != pegasus ]] ; then
   exit 2
 fi
 
-mkdir -p $frontend_conf/metafiles
 
 param_filter=$1
 if [[ -z $param_filter && -d $frontend_conf/metafiles ]] ; then
   rm -rf $frontend_conf/metafiles
 fi
+mkdir -p $frontend_conf/metafiles
 
 function scrap(){
     local name="$1"
