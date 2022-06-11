@@ -16,7 +16,7 @@ fi
 mkdir -p $frontend_conf/metafiles
 
 param_filter=$1
-if [[ -z $param_filter ]] ; then
+if [[ -z $param_filter && -d $frontend_conf/metafiles ]] ; then
   rm -rf $frontend_conf/metafiles
 fi
 
@@ -39,8 +39,6 @@ function scrap(){
     core="$(get_or_install_core $name)"
     scraper_launcher="$SCRIPTPATH/launch.sh \"{file.path}\" $core"
 
-    mkdir -p "$metadir"
-
     $scraper_cmd            \
       -s screenscraper       \
       -u $screenscraper_login \
@@ -61,7 +59,6 @@ function scrap(){
       --region $scraper_region  \
       --flags unattend
 
-    mkdir $frontend_conf/metafiles
     ln -sf "$metadir/metadata.pegasus.txt" "$frontend_conf/metafiles/$name.metadata.pegasus.txt"
 }
 
