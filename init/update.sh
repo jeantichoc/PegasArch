@@ -1,50 +1,67 @@
 #!/bin/bash
-{
-  ORG=jeantichoc
-  APP=PegasArch
-  LATEST=`wget -q -O - "https://api.github.com/repos/$ORG/$APP/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/'`
 
-  if [[ ! -f VERSION ]] ; then
-    echo "VERSION=0.0.0" > VERSION
-  fi
-  source VERSION
+org=jeantichoc
+app=PegasArch
 
-  function echo.blue(){
-    echo -e "\e[1;34m$*\033[0m"
-  }
-
-  handle_error () {
-    local EXITCODE=$?
-    local ACTION=$1
-    rm --force VERSION
-    echo.blue "--- Failed to $ACTION $APP v.${LATEST}, exiting with code $EXITCODE ---"
-    exit $EXITCODE
-  }
-
-
-
-  if [[ $LATEST == $VERSION ]] ; then
-    echo.blue "--- $APP is already the latest version, exiting ---"
-    echo.blue "You can force a reinstall by removing the VERSION file by running rm VERSION. Then rerun ./update_$APP.sh afterwards."
-    exit 0
-  fi
-
-  echo.blue "--- Fetching $APP v.$LATEST ---"
-  wget -N "https://github.com/$ORG/$APP/archive/${LATEST}.tar.gz" || handle_error "fetch"
-
-  echo.blue "--- Unpacking ---"
-  cp -p config.txt .config.txt 2>/dev/null
-  tar xvzf $LATEST.tar.gz --strip-components 1 --overwrite || handle_error "unpack"
-  rm $LATEST.tar.gz
-
-  mv .config.txt config.txt 2>/dev/null
-
-
-  echo.blue "--- Cleaning out old build if one exists ---"
-
-  echo.blue "--- Installing $APP v.$LATEST ---"
-  #bash init/install.sh || handle_error "install"
-  echo.blue "--- $APP has been updated to v.$LATEST ---"
-
-  exit 0
+function echo.blue (){
+  echo -e "\e[1;34m$*\033[0m"
 }
+
+function handle_error () {
+  local exit_code=$?
+  local action=$1
+  rm --force version
+  echo.blue "--- Failed to $action $app v.${latest}, exiting with code $exit_code ---"
+  exit $exit_code
+}
+
+
+if [[ $1 ]] ; then
+  latest="$1"
+else
+  latest=$(wget -q -O - "https://api.github.com/repos/$org/$app/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+fi
+
+
+if [[ ! -f version ]] ; then
+  echo "version=0.0.0" > version
+fi
+source version
+
+
+if [[ $latest == $version ]] ; then
+  echo.blue "--- $app is already the latest version, exiting ---"
+  echo.blue "You can force a reinstall by removing the version file by running rm version. Then rerun ./update_$app.sh afterwards."
+  exit 0
+fi
+
+echo.blue "--- Fetching $app v.$latest ---"
+if [[ $1 == HEAD ]] ; then
+  url="https://github.com/$org/$app/archive/refs/heads/main.tar.gz"
+  latest=main
+else
+  url="https://github.com/$org/$app/archive/${latest}.tar.gz"
+fi
+wget -N "$url" || handle_error "fetch"
+
+echo.blue "--- Unpacking ---"
+
+cp -p config.txt .config.txt 2>/dev/null
+cp -p resources/artwork.xml resources/.artwork.xml 2>/dev/null
+cp -p resources/retroarch.conf resources/.retroarch.conf 2>/dev/null
+
+tar xvzf $latest.tar.gz --strip-components 1 --overwrite || handle_error "unpack"
+rm $latest.tar.gz
+
+mv .config.txt config.txt 2>/dev/null
+mv resources/.artwork.xml resources/artwork.xml 2>/dev/null
+mv resources/.retroarch.conf resources/retroarch.conf 2>/dev/null
+
+
+echo.blue "--- Cleaning out old build if one exists ---"
+
+echo.blue "--- Installing $app v.$latest ---"
+#bash init/install.sh || handle_error "install"
+echo.blue "--- $app has been updated to v.$latest ---"
+
+exit 0
