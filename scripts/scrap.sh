@@ -47,7 +47,7 @@ function scrap(){
       -i "$folder"              \
       --lang $scraper_lang       \
       --region $scraper_region    \
-      --flags unattend nohints
+      --flags unattend,nohints
 
 
     echo.blue "generate metadas file for pegasus"
@@ -61,7 +61,7 @@ function scrap(){
       -i "$folder"            \
       --lang $scraper_lang     \
       --region $scraper_region  \
-      --flags unattend nohints
+      --flags unattend,nohints
 
     ln -sf "$metadir/metadata.pegasus.txt" "$frontend_conf/metafiles/$name.metadata.pegasus.txt"
     ls -l "$frontend_conf/metafiles/$name.metadata.pegasus.txt"
