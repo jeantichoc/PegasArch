@@ -39,17 +39,18 @@ function scrap(){
     core="$(get_or_install_core $name)"
     scraper_launcher="$SCRIPTPATH/launch.sh \"{file.path}\" $core"
 
-    echo.green "getting metadas from screenscraper"
+    echo.blue "getting metadas from screenscraper"
     $scraper_cmd            \
       -s screenscraper       \
       -u $screenscraper_login \
       -p "$platform"           \
       -i "$folder"              \
       --lang $scraper_lang       \
-      --region $scraper_region
+      --region $scraper_region    \
+      --flags unattend nohints
 
 
-    echo.green "generate metadas file for pegasus"
+    echo.blue "generate metadas file for pegasus"
     $scraper_cmd       \
       -f "$frontend"    \
       -o "$metadir"      \
@@ -60,9 +61,10 @@ function scrap(){
       -i "$folder"            \
       --lang $scraper_lang     \
       --region $scraper_region  \
-      --flags unattend
+      --flags unattend nohints
 
     ln -sf "$metadir/metadata.pegasus.txt" "$frontend_conf/metafiles/$name.metadata.pegasus.txt"
+    ls -l "$frontend_conf/metafiles/$name.metadata.pegasus.txt"
 }
 
 get_all_ids | while read -r platform_id; do

@@ -6,11 +6,15 @@ columm_path=4
 columm_cloud=4
 
 function echo.red(){
-  echo -e "\e[1;31m$*"
+  echo -e "\033[1;31m$*\033[0m"
 }
 
 function echo.green(){
-  echo -e "\e[1;32m$*"
+  echo -e "\033[1;32m$*\033[0m"
+}
+
+function echo.blue(){
+  echo -e "\033[1;34m$*\033[0m"
 }
 
 function get_conf(){
