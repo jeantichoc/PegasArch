@@ -30,8 +30,12 @@ sudo apt-get -qq --assume-yes install cabextract       || handle_error "install 
 sudo apt-get -qq --assume-yes install curl             || handle_error "install curl"
 sudo apt-get -qq --assume-yes install git              || handle_error "install git"
 sudo apt-get -qq --assume-yes install qt5-default      || handle_error "install qt5-default"
-sudo apt-get -qq --assume-yes install rclone           || handle_error "install rclone"
 #sudo apt-get -qq --assume-yes install p7zip-full       || handle_error "install p7zip-full"
+
+
+echo.blue "installing rclone ..."
+#sudo apt-get -qq --assume-yes install rclone           || handle_error "install rclone"
+curl https://rclone.org/install.sh | sudo bash
 
 ##### RetroArch
 echo.blue "installing retroarch ..."
