@@ -1,22 +1,24 @@
 #!/bin/bash
 script="$(readlink -f "$0")"
-script_path="$(dirname "$script")"
+script_path="$(dirname "$script")"/scripts
+source $script_path/../init.sh
+
 
 menu="$1"
 
 
 if [[ $menu == scrap ]] ; then
   shift
-  bash $script_path/scripts/scrap.sh "$@"
+  bash $script_path/scrap.sh "$@"
   exit $?
 fi
 
 
 if [[ $menu == refresh ]] ; then
   shift
-  bash $script_path/scripts/sync.sh
-  bash $script_path/scripts/mount.sh
-  bash $script_path/scripts/scrap.sh
+  pegasarch_sync
+  pegasarch_mount
+  bash $script_path/scrap.sh
   exit $?
 fi
 
@@ -29,22 +31,13 @@ fi
 
 
 if [[ $menu == sync ]] ; then
-  shift
-  get_ids_to_sync | while read -r PLATFORM; do
-    rcloneSync "$ROMSDIR/$PLATFORM"
-  done
-
-  rclone_bisync "$SAVDIR"
+  pegasarch_sync
   exit $?
 fi
 
 
 if [[ $menu == mount ]] ; then
-  shift
-  #TODO remove empty dir
-  get_ids_to_mount | while read -r PLATFORM; do
-    rclone_mount "$ROMSDIR/$PLATFORM"
-  done
+  pegasarch_mount
   exit $?
 fi
 
@@ -54,6 +47,6 @@ if [[ $menu == launch ]] ; then
   shift
   #TODO remove empty dir
 
-  bash $script_path/scripts/launch.sh "$@"
+  bash $script_path/launch.sh "$@"
   exit $?
 fi
