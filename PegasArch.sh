@@ -1,7 +1,7 @@
 #!/bin/bash
-script="$(readlink -f "$0")"
-script_path="$(dirname "$script")"/scripts
-source $script_path/../init.sh
+pegasarch="$(readlink -f "$0")"
+pegasarch_path="$(dirname "$pegasarch")"
+source $pegasarch_path/init/init.sh
 
 
 menu="$1"
