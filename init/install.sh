@@ -1,3 +1,14 @@
+default_location=$HOME/GitHub/PegasArch
+if [[ -f PegasArch.sh ]] ; then
+  default_location=.
+fi
+
+default_location=$(realpath $default_location)
+read -p "enter a value: " -i default_location -e location
+
+mkdir -p $location || exit 1
+cd $location || exit 2
+
 pegasarch="$(readlink -f "$0")"
 pegasarch_path="$(dirname "$pegasarch")"
 
