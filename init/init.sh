@@ -147,7 +147,7 @@ function find_core_file () {
 }
 
 
-function get_or_install_core_sub () {
+function install_core_if_required () {
   local id="$1"
   local core
 
@@ -158,7 +158,6 @@ function get_or_install_core_sub () {
   fi
 
   if [[ -f $core ]] ; then
-    echo "$core"
     return
   fi
 
@@ -170,7 +169,6 @@ function get_or_install_core_sub () {
   fi
 
   if [[ -f $core_file ]] ; then
-    echo "$core_file"
     return
   fi
 
@@ -178,10 +176,24 @@ function get_or_install_core_sub () {
   return 1
 }
 
+function get_core_file () {
+  local id="$1"
+  local core
 
-function get_or_install_core () {
-  core="$(get_or_install_core_sub "$1")" || return 1
-  echo "$core" | tail -1
+  core="$(get_core "$id")"
+  if [[ -z $core ]] ; then
+    return 1
+  elif [[ -f $core ]] ; then
+    echo "$core"
+    return
+  fi
+
+  core_file="$(find_core_file "$core")"
+  if [[ -f $core_file ]] ; then
+    echo "$core_file"
+    return
+  fi
+  return 1
 }
 
 
@@ -235,7 +247,8 @@ function scrap () {
     local core
 
 
-    core="$(get_or_install_core "$name")" || return
+    install_core_if_required "$name" || return
+    core="$(get_core_file "$name")"
 
     mkdir -p "$metadir"
     metadir="$(realpath "$metadir")"
