@@ -1,5 +1,5 @@
-SCRIPT="$(readlink -f "$0")"
-script_path="$(dirname "$SCRIPT")"
+script="$(readlink -f "$0")"
+script_path="$(dirname "$script")"
 
 handle_error () {
   local EXITCODE=$?

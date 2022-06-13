@@ -1,6 +1,6 @@
 #!/bin/bash
-SCRIPT="$(readlink -f "$0")"
-script_path="$(dirname "$SCRIPT")"
+script="$(readlink -f "$0")"
+script_path="$(dirname "$script")"
 source "$script_path/../init/init.sh"
 
 if [[ -z $screenscraper_login ]] ; then
