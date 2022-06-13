@@ -198,6 +198,7 @@ function get_core_file () {
 
 
 function pegasarch_cloud () {
+  check_rclone || return 1
   get_ids_to_mount | while read -r id; do
     rclone_mount "$(get_cloud "$id")"  "$(get_path "$id")"
   done
@@ -309,4 +310,18 @@ function pegasarch_scrap () {
     fi
     scrap "$platform_id" "$(get_scraper "$platform_id")" "$(get_path "$platform_id")"
   done
+}
+
+
+function check_rclone () {
+  local list=$(rclone listremotes)
+  if [[ $? != 0 ]] ; then
+    echo.red "rclone issue $list"
+    return 1
+  fi
+  if [[ $(echo "$list" | wc -l ) < 1 ]] ; then
+    echo.red "no rclone remote configured"
+    echo.red "run 'rclone config' to start the configuration"
+    return 1
+  fi
 }
