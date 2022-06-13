@@ -158,7 +158,7 @@ function get_or_install_core_sub () {
   fi
 
   if [[ -f $core ]] ; then
-    echo $core
+    echo "$core"
     return
   fi
 
@@ -167,6 +167,11 @@ function get_or_install_core_sub () {
     echo.blue "Installing core ${core//_/-}"
     sudo apt-get --assume-yes install libretro-${core//_/-}
     core_file="$(find_core_file "$core")"
+  fi
+
+  if [[ -f $core_file ]] ; then
+    echo "$core_file"
+    return
   fi
 
   echo.red "no core $core found"
@@ -229,10 +234,11 @@ function scrap () {
     local scraper_launcher
     local core
 
-    mkdir -p "$metadir"
-    metadir="$(realpath "$metadir")"
 
     core="$(get_or_install_core "$name")" || return
+
+    mkdir -p "$metadir"
+    metadir="$(realpath "$metadir")"
     scraper_launcher="$pegasarch launch \"{file.path}\" "$core""
 
     echo.blue "getting metadas from screenscraper"
