@@ -6,10 +6,16 @@ source $script_path/../init.sh
 
 menu="$1"
 
+if [[ $menu == launch ]] ; then
+  shift
+  pegasarch_launch "$@"
+  exit $?
+fi
+
 
 if [[ $menu == scrap ]] ; then
   shift
-  bash $script_path/scrap.sh "$@"
+  pegasarch_scrap "$@"
   exit $?
 fi
 
@@ -17,7 +23,7 @@ fi
 if [[ $menu == refresh ]] ; then
   shift
   pegasarch_cloud
-  bash $script_path/scrap.sh
+  pegasarch_scrap
   exit $?
 fi
 
@@ -31,14 +37,5 @@ fi
 
 if [[ $menu == cloud ]] ; then
   pegasarch_cloud
-  exit $?
-fi
-
-
-if [[ $menu == launch ]] ; then
-  shift
-  #TODO remove empty dir
-
-  bash $script_path/launch.sh "$@"
   exit $?
 fi

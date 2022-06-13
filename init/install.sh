@@ -1,5 +1,5 @@
-script="$(readlink -f "$0")"
-script_path="$(dirname "$script")"
+pegasarch="$(readlink -f "$0")"
+pegasarch_path="$(dirname "$pegasarch")"
 
 handle_error () {
   local EXITCODE=$?
