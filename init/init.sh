@@ -116,6 +116,15 @@ function rclone_mount () {
   rclone mount $options
 }
 
+function sync_save () {
+  if [[ $emulator_cloud_saves ]] ; then
+    rclone_bisync $emulator_cloud_saves $emulator_saves
+  fi
+  if [[ $emulator_cloud_states ]] ; then
+    rclone_bisync $emulator_cloud_states $emulator_states
+  fi
+}
+
 
 function find_core_file () {
   local core="$1"
@@ -207,7 +216,7 @@ function pegasarch_cloud () {
     rclone_sync "$(get_cloud "$id")"  "$(get_path "$id")"
   done
 
-  rclone_bisync "$SAVDIR"
+  sync_save
 }
 
 
@@ -234,7 +243,7 @@ function pegasarch_launch () {
   echo "$retroarch_cmd -f -L \"$core\" \"$file\" --appendconfig $retroarch_superconf_to_use"
   $retroarch_cmd -f -L "$core" "$file" --appendconfig "$retroarch_superconf_to_use"
 
-  #rclone_bisync "$SAVDIR" &
+  sync_save
 }
 
 
