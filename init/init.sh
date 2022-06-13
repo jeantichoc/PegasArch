@@ -15,7 +15,7 @@ scraper_artwork="$(realpath "$pegasarch_path/resources/artwork.xml")"
 
 
 ##### FUNCTIONS #####
-pa_conf="${pegasarch_path:-.}/../config.txt"
+pa_conf="$pegasarch_path/config.txt"
 columm_id=1
 columm_scraper=2
 columm_core=3
