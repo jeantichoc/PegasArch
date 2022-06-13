@@ -9,46 +9,62 @@ function echo.red(){
   echo -e "\033[1;31m$*\033[0m"
 }
 
+
 function echo.green(){
   echo -e "\033[1;32m$*\033[0m"
 }
+
 
 function echo.blue(){
   echo -e "\033[1;34m$*\033[0m"
 }
 
+
 function get_conf(){
   grep -v "^#" "$pa_conf" | grep "|" | grep -Ei "^ *$1 *\|"
 }
+
 
 function get_all_ids(){
   grep -v "^#" "$pa_conf" | grep "|" | cut -d '|' -f 1 | trim
 }
 
+
 function get_ids_to_sync(){
   grep -v "^#" "$pa_conf" | grep -Ei "\| *sync *\|" | cut -d '|' -f $columm_id | trim
 }
 
+
 function get_ids_to_mount(){
   grep -v "^#" "$pa_conf" | grep -Ei "\| *mount *\|" | cut -d '|' -f $columm_id | trim
 }
+
 
 function get_field(){
   local var="$(get_conf "$1"  | cut -d '|' -f "$2" | trim)"
   eval echo $var
 }
 
+
 function get_scraper(){
   get_field "$1" $columm_scraper
 }
+
 
 function get_path(){
   get_field "$1" $columm_path
 }
 
+
 function get_core(){
   get_field "$1" $columm_core
 }
+
+
+function get_cloud(){
+  get_field "$1" $columm_cloud
+}
+
 
 function trim(){
   while read -r data; do
@@ -56,30 +72,30 @@ function trim(){
   done
 }
 
-function rcloneSync(){
-  local FOLDER="$1"
-  mkdir -p "$CLOUDDIR/$FOLDER"
-  echo rclone sync "$CLOUD:$FOLDER" "$CLOUDDIR/$FOLDER"
-  rclone sync "$CLOUD:$FOLDER" "$CLOUDDIR/$FOLDER"
+
+function rclone_sync(){
+  mkdir -p "$2"
+  echo rclone sync "$1" "$2"
+  rclone sync "$1" "$2"
 }
+
 
 function rclone_bisync(){
-  local FOLDER="$1"
   local RESYNC=""
-  if [[ ! -d "$CLOUDDIR/$FOLDER" ]] ; then
-      mkdir -p "$CLOUDDIR/$FOLDER"
+  if [[ ! -d "$2" ]] ; then
+      mkdir -p "$2"
       RESYNC="--resync"
   fi
-  echo rclone bisync "$CLOUD:$FOLDER" "$CLOUDDIR/$FOLDER" $RESYNC
-  rclone bisync "$CLOUD:$FOLDER" "$CLOUDDIR/$FOLDER" $RESYNC
+  echo rclone bisync "$1" "$2" $RESYNC
+  rclone bisync "$1" "$2" $RESYNC
 }
 
+
 function rclone_mount(){
-  local FOLDER="$1"
-  local OPTIONS="--allow-other --read-only --vfs-cache-mode writes --allow-root --daemon-timeout=10s --daemon"
-  mkdir -p "$CLOUDDIR/$FOLDER"
-  echo rclone mount "$CLOUD:$FOLDER" "$CLOUDDIR/$FOLDER" $OPTIONS
-  rclone mount "$CLOUD:$FOLDER" "$CLOUDDIR/$FOLDER" $OPTIONS
+  local options="--allow-other --read-only --vfs-cache-mode writes --allow-root --daemon-timeout=10s --daemon"
+  mkdir -p "$2"
+  echo rclone mount "$1" "$2" $options
+  rclone mount $options
 }
 
 
@@ -139,12 +155,12 @@ function get_or_install_core(){
 
 
 function pegasarch_cloud(){
-  get_ids_to_mount | while read -r PLATFORM; do
-    rclone_mount "$ROMSDIR/$PLATFORM"
+  get_ids_to_mount | while read -r id; do
+    rclone_mount "$(get_cloud "$id")"  "$(get_path "$id")"
   done
 
-  get_ids_to_sync | while read -r PLATFORM; do
-    rcloneSync "$ROMSDIR/$PLATFORM"
+  get_ids_to_sync | while read -r id; do
+    rclone_sync "$(get_cloud "$id")"  "$(get_path "$id")"
   done
 
   rclone_bisync "$SAVDIR"
