@@ -138,14 +138,11 @@ function get_or_install_core(){
 }
 
 
-function pegasarch_mount(){
+function pegasarch_cloud(){
   get_ids_to_mount | while read -r PLATFORM; do
     rclone_mount "$ROMSDIR/$PLATFORM"
   done
-}
 
-
-function pegasarch_sync(){
   get_ids_to_sync | while read -r PLATFORM; do
     rcloneSync "$ROMSDIR/$PLATFORM"
   done

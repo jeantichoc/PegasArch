@@ -16,8 +16,7 @@ fi
 
 if [[ $menu == refresh ]] ; then
   shift
-  pegasarch_sync
-  pegasarch_mount
+  pegasarch_cloud
   bash $script_path/scrap.sh
   exit $?
 fi
@@ -30,17 +29,10 @@ if [[ $menu == pegasus ]] ; then
 fi
 
 
-if [[ $menu == sync ]] ; then
-  pegasarch_sync
+if [[ $menu == cloud ]] ; then
+  pegasarch_cloud
   exit $?
 fi
-
-
-if [[ $menu == mount ]] ; then
-  pegasarch_mount
-  exit $?
-fi
-
 
 
 if [[ $menu == launch ]] ; then
