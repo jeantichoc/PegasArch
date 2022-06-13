@@ -4,8 +4,9 @@ scraper_lang=fr
 scraper_region=fr
 
 emulator_saves=$HOME/OneDrive/Documents/Retroarch/saves
-emulator_states=$HOME/OneDrive/Documents/Retroarch/states
 emulator_cloud_saves=OneDrive:Documents/Retroarch/saves
+
+emulator_states=$HOME/OneDrive/Documents/Retroarch/states
 emulator_cloud_states=OneDrive:Documents/Retroarch/states
 
 

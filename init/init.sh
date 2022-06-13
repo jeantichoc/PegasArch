@@ -9,5 +9,3 @@ scraper_launcher="$script_path/launch.sh \"{file.path}\""
 retroarch_cmd=retroarch
 retroarch_superconf="$(realpath "$script_path/../resources/retroarch.conf")"
 scraper_artwork="$(realpath "$script_path/../resources/artwork.xml")"
-
-SAVDIRCLOUD="$CLOUDDIR/$SAVDIR"
