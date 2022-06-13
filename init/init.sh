@@ -106,6 +106,10 @@ function rclone_bisync () {
   fi
   echo rclone bisync "$1" "$2" $RESYNC
   rclone bisync "$1" "$2" $RESYNC
+  if [[ $? == 2 ]] ; then
+    echo.blue "unsync, try with resync"
+    rclone bisync "$1" "$2" --resync
+  fi
 }
 
 
