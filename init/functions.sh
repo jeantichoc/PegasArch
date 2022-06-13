@@ -1,4 +1,4 @@
-pa_conf="${SCRIPTPATH:-.}/../config.txt"
+pa_conf="${script_path:-.}/../config.txt"
 columm_id=1
 columm_scraper=2
 columm_core=3

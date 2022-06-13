@@ -1,22 +1,22 @@
 #!/bin/bash
 SCRIPT="$(readlink -f "$0")"
-SCRIPTPATH="$(dirname "$SCRIPT")"
+script_path="$(dirname "$SCRIPT")"
 
 menu="$1"
 
 
 if [[ $menu == scrap ]] ; then
   shift
-  bash $SCRIPTPATH/scripts/scrap.sh "$@"
+  bash $script_path/scripts/scrap.sh "$@"
   exit $?
 fi
 
 
 if [[ $menu == refresh ]] ; then
   shift
-  bash $SCRIPTPATH/scripts/sync.sh
-  bash $SCRIPTPATH/scripts/mount.sh
-  bash $SCRIPTPATH/scripts/scrap.sh
+  bash $script_path/scripts/sync.sh
+  bash $script_path/scripts/mount.sh
+  bash $script_path/scripts/scrap.sh
   exit $?
 fi
 
@@ -54,6 +54,6 @@ if [[ $menu == launch ]] ; then
   shift
   #TODO remove empty dir
 
-  bash $SCRIPTPATH/scripts/launch.sh "$@"
+  bash $script_path/scripts/launch.sh "$@"
   exit $?
 fi

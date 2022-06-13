@@ -1,10 +1,10 @@
 #!/bin/bash
 SCRIPT="$(readlink -f "$0")"
-SCRIPTPATH="$(dirname "$SCRIPT")"
-. "$SCRIPTPATH/../init/init.sh"
+script_path="$(dirname "$SCRIPT")"
+. "$script_path/../init/init.sh"
 
-LOG="$SCRIPTPATH/../launcher.log"
-CONF="$SCRIPTPATH/../resources/retroarch.conf"
+LOG="$script_path/../launcher.log"
+CONF="$script_path/../resources/retroarch.conf"
 
 file="$1"
 core="$2"

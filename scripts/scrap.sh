@@ -1,7 +1,7 @@
 #!/bin/bash
 SCRIPT="$(readlink -f "$0")"
-SCRIPTPATH="$(dirname "$SCRIPT")"
-source "$SCRIPTPATH/../init/init.sh"
+script_path="$(dirname "$SCRIPT")"
+source "$script_path/../init/init.sh"
 
 if [[ -z $screenscraper_login ]] ; then
   echo.red "Screenscraper login:password not set in config.txt"
@@ -24,7 +24,7 @@ function scrap(){
     local name="$1"
     local platform="$2"
     local folder="$3"
-    local metadir="$SCRIPTPATH/../metadatas/$name"
+    local metadir="$script_path/../metadatas/$name"
     local scraper_launcher
     local core
 
@@ -37,7 +37,7 @@ function scrap(){
     metadir="$(realpath "$metadir")"
 
     core="$(get_or_install_core $name)"
-    scraper_launcher="$SCRIPTPATH/launch.sh \"{file.path}\" $core"
+    scraper_launcher="$script_path/launch.sh \"{file.path}\" $core"
 
     echo.blue "getting metadas from screenscraper"
     $scraper_cmd            \
