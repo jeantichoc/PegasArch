@@ -1,6 +1,7 @@
 
 # Load first part of the config.txt as a bash pegasarch
-eval $(cat ${pegasarch_path:-.}/../config.txt  | sed -e '/#########/,$d' | grep -v "^#"  )
+pegasarch_conf="$pegasarch_path/config.txt"
+eval $(cat $pegasarch_conf  | sed -e '/#########/,$d' | grep -v "^#"  )
 
 
 ##### ADDITONALS CONFIGURATIONS ####
@@ -15,12 +16,12 @@ scraper_artwork="$(realpath "$pegasarch_path/resources/artwork.xml")"
 
 
 ##### FUNCTIONS #####
-pa_conf="$pegasarch_path/config.txt"
+
 columm_id=1
 columm_scraper=2
 columm_core=3
 columm_path=4
-columm_cloud=4
+columm_cloud=5
 
 function echo.red () {
   echo -e "\033[1;31m$*\033[0m"
@@ -38,22 +39,22 @@ function echo.blue () {
 
 
 function get_conf () {
-  grep -v "^#" "$pa_conf" | grep "|" | grep -Ei "^ *$1 *\|"
+  grep -v "^#" "$pegasarch_conf" | grep "|" | grep -Ei "^ *$1 *\|"
 }
 
 
 function get_all_ids () {
-  grep -v "^#" "$pa_conf" | grep "|" | cut -d '|' -f 1 | trim
+  grep -v "^#" "$pegasarch_conf" | grep "|" | cut -d '|' -f 1 | trim
 }
 
 
 function get_ids_to_sync () {
-  grep -v "^#" "$pa_conf" | grep -Ei "\| *sync *\|" | cut -d '|' -f $columm_id | trim
+  grep -v "^#" "$pegasarch_conf" | grep -Ei "\| *sync *\|" | cut -d '|' -f $columm_id | trim
 }
 
 
 function get_ids_to_mount () {
-  grep -v "^#" "$pa_conf" | grep -Ei "\| *mount *\|" | cut -d '|' -f $columm_id | trim
+  grep -v "^#" "$pegasarch_conf" | grep -Ei "\| *mount *\|" | cut -d '|' -f $columm_id | trim
 }
 
 
