@@ -39,3 +39,8 @@ if [[ $menu == cloud ]] ; then
   pegasarch_cloud
   exit $?
 fi
+
+if [[ $menu == cloudsave ]] ; then
+  sync_save
+  exit $?
+fi
