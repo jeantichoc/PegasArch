@@ -1,3 +1,5 @@
+#!/bin/bash
+
 default_location=$HOME/GitHub/PegasArch
 if [[ -f PegasArch.sh ]] ; then
   default_location=.
