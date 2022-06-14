@@ -1,10 +1,13 @@
 # login:password for https://www.screenscraper.fr
 screenscraper_login=""
-scraper_lang=fr
-scraper_region=fr
 
-emulator_saves=$HOME/OneDrive/Documents/Retroarch
-emulator_cloud_saves=OneDrive:Documents/Retroarch
+# Optional variables to force language of metadatas
+#scraper_lang=en
+#scraper_region=us
+
+# To activate, uncomment the save*_directory line in the resources/retroarch.conf
+#emulator_saves=$HOME/OneDrive/Documents/Retroarch
+#emulator_cloud_saves=OneDrive:Documents/Retroarch
 
 
 # ID             | skyscraper   | retroarch core           | rom path                                  | rclone path                               | rclone mode |

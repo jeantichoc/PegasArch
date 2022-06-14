@@ -250,6 +250,14 @@ function pegasarch_launch () {
   sync_save &
 }
 
+function lang_options () {
+  if [[ $scraper_lang ]] ; then
+    echo -n --lang scraper_lang
+  fi
+  if [[ $scraper_region ]] ; then
+    echo -n --region scraper_region
+  fi
+}
 
 
 function scrap () {
@@ -274,9 +282,7 @@ function scrap () {
       -u $screenscraper_login \
       -p "$platform"           \
       -i "$folder"              \
-      --lang $scraper_lang       \
-      --region $scraper_region    \
-      --flags unattend,nohints
+      $(lang_options) --flags unattend,nohints
 
 
     echo.blue "generate metadas file for pegasus"
@@ -288,9 +294,7 @@ function scrap () {
       -a "$scraper_artwork" \
       -e "$scraper_launcher" \
       -i "$folder"            \
-      --lang $scraper_lang     \
-      --region $scraper_region  \
-      --flags unattend,nohints
+      $(lang_options) --flags unattend,nohints
 
     ln -sf "$metadir/metadata.pegasus.txt" "$frontend_conf/metafiles/$name.metadata.pegasus.txt"
     ls -l "$frontend_conf/metafiles/$name.metadata.pegasus.txt"
