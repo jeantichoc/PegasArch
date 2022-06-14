@@ -1,18 +1,13 @@
 #!/bin/bash
 
-default_location=$HOME/GitHub/PegasArch
+pegasarch_path=$HOME/GitHub/PegasArch
 if [[ -f PegasArch.sh ]] ; then
-  default_location=.
+  pegasarch_path=.
+elif [[ -f ../PegasArch.sh ]] ; then
+  pegasarch_path=..
 fi
 
-default_location=$(realpath $default_location)
-read -p "enter a value: " -i default_location -e location
-
-mkdir -p $location || exit 1
-cd $location || exit 2
-
-pegasarch="$(readlink -f "$0")"
-pegasarch_path="$(dirname "$pegasarch")"
+pegasarch_path=$(realpath $pegasarch_path)
 
 handle_error () {
   local EXITCODE=$?
@@ -82,6 +77,8 @@ sudo flatpak install --assumeyes flathub org.pegasus_frontend.Pegasus
 
 #### Skyscraper (metadata provider)
 echo.blue "installing skyscraper ..."
-mkdir -p $HOME/GitHub/skyscraper
-cd $HOME/GitHub/skyscraper
+mkdir -p $location/../skyscraper || exit 1
+cd $location/../skyscraper  || exit 2
 wget -q -O - https://raw.githubusercontent.com/muldjord/skyscraper/master/update_skyscraper.sh | bash
+scraper_cmd=$(realpath "Skyscraper")
+sed "s|scraper_cmd=.*|scraper_cmd='$scraper_cmd'|" -i $pegasarch_path/config.txt
