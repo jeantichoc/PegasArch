@@ -28,10 +28,10 @@ if [[ -f PegasArch.sh ]] ; then
 elif [[ -f ../PegasArch.sh ]] ; then
   pegasarch_path=..
 else
-  read -p "Path for installation: " -i $HOME/GitHub/PegasArch -e pegasarch_path
+  read -p "Path for installation: " -i "$HOME/GitHub/PegasArch" -e pegasarch_path
 fi
-mkdir -p $pegasarch_path || exit 1
-cd $pegasarch_path || exit 2
+mkdir -p "$pegasarch_path" || exit 1
+cd "$pegasarch_path" || exit 2
 
 
 if [[ ! -f version ]] ; then
