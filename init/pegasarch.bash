@@ -333,7 +333,7 @@ function check_rclone () {
     echo.red "rclone issue $list"
     return 1
   fi
-  if [[ $(echo "$list" | wc -l ) < 1 ]] ; then
+  if [[ $(echo "$list" | grep -v "not found - using defaults" | wc -l ) < 1 ]] ; then
     echo.red "no rclone remote configured"
     echo.red "run 'rclone config' to start the configuration"
     return 1
