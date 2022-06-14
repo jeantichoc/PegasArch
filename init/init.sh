@@ -252,10 +252,10 @@ function pegasarch_launch () {
 
 function lang_options () {
   if [[ $scraper_lang ]] ; then
-    echo -n --lang scraper_lang
+    echo -n --lang $scraper_lang
   fi
   if [[ $scraper_region ]] ; then
-    echo -n --region scraper_region
+    echo -n --region $scraper_region
   fi
 }
 
