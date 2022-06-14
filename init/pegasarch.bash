@@ -6,9 +6,6 @@ eval $(cat $pegasarch_conf  | sed -e '/#########/,$d' | grep -v "^#"  )
 
 ##### ADDITONALS CONFIGURATIONS ####
 frontend=pegasus
-frontend_conf="$HOME/.var/app/org.pegasus_frontend.Pegasus/config/pegasus-frontend"
-scraper_cmd="$HOME/GitHub/skyscraper/Skyscraper"
-retroarch_cmd=retroarch
 retroarch_superconf="$(realpath "$pegasarch_path/resources/retroarch.conf")"
 retroarch_superconf_to_use="$(realpath "$pegasarch_path/resources/.retroarch_to_use.conf")"
 scraper_artwork="$(realpath "$pegasarch_path/resources/artwork.xml")"

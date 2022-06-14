@@ -9,6 +9,10 @@ emulator_cloud_saves=OneDrive:Documents/Retroarch/saves
 emulator_states=$HOME/OneDrive/Documents/Retroarch/states
 emulator_cloud_states=OneDrive:Documents/Retroarch/states
 
+frontend_conf="$HOME/.var/app/org.pegasus_frontend.Pegasus/config/pegasus-frontend"
+scraper_cmd="$HOME/GitHub/skyscraper/Skyscraper"
+retroarch_cmd="retroarch"
+
 
 # ID            | skyscraper  | retroarch core           | rom path                                  | rclone path                               | rclone mode |
 ################################################################################################################################################################
