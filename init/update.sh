@@ -19,7 +19,7 @@ function handle_error () {
 if [[ $1 ]] ; then
   new="$1"
 else
-  new=$(wget -q -O - "https://api.github.com/repos/$org/$app/releases/new" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+  new=$(wget -q -O - "https://api.github.com/repos/$org/$app/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
 fi
 
 # go and/or create folder
