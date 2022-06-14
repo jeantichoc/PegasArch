@@ -7,9 +7,7 @@ eval $(cat $pegasarch_conf  | sed -e '/#########/,$d' | grep -v "^#"  )
 ##### ADDITONALS CONFIGURATIONS ####
 frontend=pegasus
 retroarch_superconf="$(realpath "$pegasarch_path/resources/retroarch.conf")"
-retroarch_superconf_to_use="$(realpath "$pegasarch_path/resources/.retroarch_to_use.conf")"
 scraper_artwork="$(realpath "$pegasarch_path/resources/artwork.xml")"
-
 
 
 ##### FUNCTIONS #####
@@ -222,15 +220,14 @@ function pegasarch_cloud () {
 
 
 function configure_retroarch () {
-  cp "$retroarch_superconf" "$retroarch_superconf_to_use"
   if [[ $emulator_saves ]] ; then
     mkdir -p $emulator_saves
-    sed "s|^savefile_directory *= *PEGASARCH *|savefile_directory = $emulator_saves|"   -i "$retroarch_superconf_to_use"
+    sed "s|# *savefile_directory *=.*|savefile_directory = $emulator_saves|"   -i "$retroarch_superconf"
   fi
 
   if [[ $emulator_states ]] ; then
     mkdir -p $emulator_states
-    sed "s|^savestate_directory *= *PEGASARCH *|savestate_directory = $emulator_states|" -i "$retroarch_superconf_to_use"
+    sed "s|# *savestate_directory *=.*|savestate_directory = $emulator_states|" -i "$retroarch_superconf"
   fi
 }
 
@@ -241,8 +238,8 @@ function pegasarch_launch () {
 
   configure_retroarch
 
-  echo "$retroarch_cmd -f -L \"$core\" \"$file\" --appendconfig $retroarch_superconf_to_use"
-  $retroarch_cmd -f -L "$core" "$file" --appendconfig "$retroarch_superconf_to_use"
+  echo "$retroarch_cmd -f -L \"$core\" \"$file\" --appendconfig $retroarch_superconf"
+  $retroarch_cmd -f -L "$core" "$file" --appendconfig "$retroarch_superconf"
 
   sync_save &
 }
