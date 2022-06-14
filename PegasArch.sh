@@ -1,7 +1,7 @@
 #!/bin/bash
 pegasarch="$(readlink -f "$0")"
 pegasarch_path="$(dirname "$pegasarch")"
-source $pegasarch_path/init/init.sh
+source $pegasarch_path/init/pegasarch.bash
 
 
 menu="$1"
