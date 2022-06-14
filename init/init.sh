@@ -247,7 +247,7 @@ function pegasarch_launch () {
   echo "$retroarch_cmd -f -L \"$core\" \"$file\" --appendconfig $retroarch_superconf_to_use"
   $retroarch_cmd -f -L "$core" "$file" --appendconfig "$retroarch_superconf_to_use"
 
-  sync_save
+  sync_save &
 }
 
 
