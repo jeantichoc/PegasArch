@@ -6,5 +6,5 @@ A bunch of bash scripts to convert an [Ubuntu](https://ubuntu.com) machine into 
 
 Copy/paste into a terminal :
 ```
-wget -q -O - https://raw.githubusercontent.com/jbottein/PegasArch/master/init/update.sh | bash
+wget -q -O - https://raw.githubusercontent.com/jeantichoc/PegasArch/master/init/update.sh | bash
 ```
