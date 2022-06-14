@@ -40,7 +40,21 @@ if [[ $menu == cloud ]] ; then
   exit $?
 fi
 
+
 if [[ $menu == cloudsave ]] ; then
   sync_save
+  exit $?
+fi
+
+
+if [[ $menu == install ]] ; then
+  shift
+  $pegasarch_path/init/install.sh "$@"
+  exit $?
+fi
+
+if [[ $menu == update ]] ; then
+  shift
+  $pegasarch_path/init/update.sh "$@"
   exit $?
 fi
