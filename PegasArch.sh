@@ -47,9 +47,9 @@ if [[ $menu == cloudsave ]] ; then
 fi
 
 
-if [[ $menu == install ]] ; then
+if [[ $menu == install_dependencies ]] ; then
   shift
-  $pegasarch_path/init/install.sh "$@"
+  $pegasarch_path/init/install_dependencies.sh "$@"
   exit $?
 fi
 

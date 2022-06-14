@@ -63,7 +63,10 @@ mv resources/.retroarch.conf resources/retroarch.conf 2>/dev/null
 echo.blue "--- Cleaning out old build if one exists ---"
 
 echo.blue "--- Installing $app v.$latest ---"
-#bash init/install.sh || handle_error "install"
+
+echo.blue "--- Installing dependencies ---"
+bash init/install_dependencies.sh || handle_error "install"
+
 echo.blue "--- $app has been updated to v.$latest ---"
 
 exit 0
