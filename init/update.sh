@@ -35,6 +35,7 @@ if [[ $latest == $version ]] ; then
   exit 0
 fi
 
+
 echo.blue "--- Fetching $app v.$latest ---"
 if [[ $1 == HEAD ]] ; then
   url="https://github.com/$org/$app/archive/refs/heads/main.tar.gz"
@@ -43,6 +44,7 @@ else
   url="https://github.com/$org/$app/archive/${latest}.tar.gz"
 fi
 wget -N "$url" || handle_error "fetch"
+
 
 echo.blue "--- Unpacking ---"
 
