@@ -22,8 +22,8 @@ fi
 
 if [[ $menu == refresh ]] ; then
   shift
-  pegasarch_cloud
-  pegasarch_scrap
+  pegasarch_cloud "$@"
+  pegasarch_scrap "$@"
   exit $?
 fi
 
@@ -36,7 +36,7 @@ fi
 
 
 if [[ $menu == cloud ]] ; then
-  pegasarch_cloud
+  pegasarch_cloud "$@"
   exit $?
 fi
 
@@ -50,6 +50,7 @@ fi
 if [[ $menu == install_dependencies ]] ; then
   shift
   $pegasarch_path/init/install_dependencies.sh "$@"
+  install_libretro_cores
   exit $?
 fi
 
