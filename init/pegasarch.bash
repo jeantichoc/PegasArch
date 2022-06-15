@@ -345,5 +345,5 @@ function install_libretro_cores () {
   get_all_ids | while read -r platform_id; do
     install_core_if_required "$platform_id" || error=1
   done
-  return error
+  return $error
 }
