@@ -59,16 +59,18 @@ wget -N "$url" || handle_error "fetch"
 
 echo.blue "--- Unpacking ---"
 
-cp -p config.txt .config.txt 2>/dev/null
 cp -p resources/artwork.xml resources/.artwork.xml 2>/dev/null
 cp -p resources/retroarch.conf resources/.retroarch.conf 2>/dev/null
 
 tar xvzf $new.tar.gz --strip-components 1 --overwrite || handle_error "unpack"
 rm $new.tar.gz
 
-mv .config.txt config.txt 2>/dev/null
 mv resources/.artwork.xml resources/artwork.xml 2>/dev/null
 mv resources/.retroarch.conf resources/retroarch.conf 2>/dev/null
+
+if [[ ! -f config.txt ]] ; then
+  cp config.example.txt config.txt || exit 3
+fi
 
 
 echo.blue "--- Cleaning out old build if one exists ---"
