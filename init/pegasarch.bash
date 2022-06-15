@@ -222,12 +222,12 @@ function pegasarch_cloud () {
 function configure_retroarch () {
   if [[ $emulator_saves ]] ; then
     mkdir -p $emulator_saves
-    sed "s|# *savefile_directory *=.*|savefile_directory = $emulator_saves|"   -i "$retroarch_superconf"
+    sed "s|.*savefile_directory *=.*|savefile_directory = $emulator_saves|"   -i "$retroarch_superconf"
   fi
 
   if [[ $emulator_states ]] ; then
     mkdir -p $emulator_states
-    sed "s|# *savestate_directory *=.*|savestate_directory = $emulator_states|" -i "$retroarch_superconf"
+    sed "s|.*savestate_directory *=.*|savestate_directory = $emulator_states|" -i "$retroarch_superconf"
   fi
 }
 
