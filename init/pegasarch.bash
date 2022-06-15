@@ -309,7 +309,7 @@ function pegasarch_scrap () {
     return 2
   fi
 
-  install_libretro_cores
+  install_libretro_cores || return 1
 
   if [[ -z $param_filter && -d $frontend_conf/metafiles ]] ; then
     rm -rf $frontend_conf/metafiles
@@ -341,7 +341,9 @@ function check_rclone () {
 
 
 function install_libretro_cores () {
+  local error=0
   get_all_ids | while read -r platform_id; do
-    install_core_if_required "$platform_id"
+    install_core_if_required "$platform_id" || error=1
   done
+  return error
 }
