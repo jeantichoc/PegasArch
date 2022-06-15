@@ -59,3 +59,12 @@ if [[ $menu == update ]] ; then
   $pegasarch_path/init/update.sh "$@"
   exit $?
 fi
+
+
+if [[ $(is_empty "$pegasarch_path/metadatas") == true ]] ; then
+  pegasarch_cloud "$@"
+  pegasarch_scrap "$@"
+fi
+
+sync_save
+flatpak run org.pegasus_frontend.Pegasus &
