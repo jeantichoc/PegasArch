@@ -1,7 +1,7 @@
 
 # Load first part of the config.txt as a bash pegasarch
 pegasarch_conf="$pegasarch_path/config.txt"
-eval $(cat $pegasarch_conf  | sed -e '/#########/,$d' | grep -v "^#"  )
+eval $(cat "$pegasarch_conf"  | sed -e '/#########/,$d' | grep -v "^#"  )
 
 
 ##### ADDITONALS CONFIGURATIONS ####
@@ -238,7 +238,7 @@ function pegasarch_launch () {
 
   configure_retroarch
 
-  echo "$retroarch_cmd -f -L \"$core\" \"$file\" --appendconfig $retroarch_superconf"
+  echo "$retroarch_cmd -f -L \"$core\" \"$file\" --appendconfig \"$retroarch_superconf\""
   $retroarch_cmd -f -L "$core" "$file" --appendconfig "$retroarch_superconf"
 
   sync_save &

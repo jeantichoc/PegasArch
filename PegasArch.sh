@@ -1,7 +1,7 @@
 #!/bin/bash
 pegasarch="$(readlink -f "$0")"
 pegasarch_path="$(dirname "$pegasarch")"
-source $pegasarch_path/init/pegasarch.bash
+source "$pegasarch_path/init/pegasarch.bash"
 
 
 menu="$1"
@@ -49,14 +49,14 @@ fi
 
 if [[ $menu == install_dependencies ]] ; then
   shift
-  $pegasarch_path/init/install_dependencies.sh "$@"
+  "$pegasarch_path/init/install_dependencies.sh" "$@"
   install_libretro_cores
   exit $?
 fi
 
 if [[ $menu == update ]] ; then
   shift
-  $pegasarch_path/init/update.sh "$@"
+  "$pegasarch_path/init/update.sh" "$@"
   exit $?
 fi
 
