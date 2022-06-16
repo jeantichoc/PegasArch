@@ -73,14 +73,24 @@ if [[ ! -f config.txt ]] ; then
 fi
 
 
-echo.blue "--- Cleaning out old build if one exists ---"
-
-echo.blue "--- Installing $app $new ---"
-
-echo.blue "--- Installing dependencies ---"
-bash init/install_dependencies.sh || handle_error "install"
-
 echo.blue "--- $app has been updated to $new ---"
 echo "version=$new" > version
+
+
+echo.blue "--- Installing dependencies ---"
+while true; do
+    read -p "Do you wish to install dependencies (y/n)? " yn </dev/tty
+    case $yn in
+        [Yy]* )
+          bash install_dependencies.sh || handle_error "install"
+          break
+          ;;
+        [Nn]* )
+          break
+          ;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
+
 
 exit 0
