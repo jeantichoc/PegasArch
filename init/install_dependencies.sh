@@ -1,13 +1,15 @@
 #!/bin/bash
 
+pegasarch=PegasArch.sh
 pegasarch_path=$HOME/GitHub/PegasArch
-if [[ -f PegasArch.sh ]] ; then
+if [[ -f $pegasarch ]] ; then
   pegasarch_path=.
-elif [[ -f ../PegasArch.sh ]] ; then
+elif [[ -f ../$pegasarch ]] ; then
   pegasarch_path=..
 fi
 
 pegasarch_path=$(realpath $pegasarch_path)
+pegasarch=$pegasarch_path/$pegasarch
 
 handle_error () {
   local EXITCODE=$?
@@ -61,3 +63,10 @@ cd $pegasarch_path/skyscraper || exit 2
 wget -q -O - https://raw.githubusercontent.com/muldjord/skyscraper/master/update_skyscraper.sh | bash
 scraper_cmd=$(realpath "Skyscraper")
 sed "s|scraper_cmd=.*|scraper_cmd='$scraper_cmd'|" -i $pegasarch_path/config.txt
+
+
+#### Add PegasArch alias
+if [[ ! $(grep -F "$pegasarch" "$HOME/.bashrc") ]] ; then
+  sed -i '/^ *alias *PegasArch=.*/d' "$HOME/.bashrc"
+  echo "alias PegasArch=\"$pegasarch\ >> "$HOME/.bashrc"
+fi
