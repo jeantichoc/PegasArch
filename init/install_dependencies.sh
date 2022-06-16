@@ -47,20 +47,6 @@ sudo add-apt-repository ppa:libretro/testing -y >/dev/null
 sudo apt-get -qq --assume-yes install retroarch        || handle_error "install retroarch"
 
 
-##### XOW (Xbox GamePad)
-echo.blue "installing xow (driver for xbox like gamepad) ..."
-if [[ -z $(systemctl | grep xow.service) ]] ; then
-  cd $pegasarch_path/..
-  git clone https://github.com/medusalix/xow
-  cd xow
-  make --silent BUILD=RELEASE
-  sudo make --silent install
-  sudo systemctl enable xow
-  sudo systemctl start xow
-fi
-
-
-
 ##### Pegasus (front-end)
 echo.blue "installing pegasus ..."
 sudo apt-get -qq --assume-yes install flatpak
@@ -70,8 +56,8 @@ sudo flatpak install --or-update --assumeyes --noninteractive flathub org.pegasu
 
 #### Skyscraper (metadata provider)
 echo.blue "installing skyscraper ..."
-mkdir -p $pegasarch_path/../skyscraper || exit 1
-cd $pegasarch_path/../skyscraper  || exit 2
+mkdir -p $pegasarch_path/skyscraper || exit 1
+cd $pegasarch_path/skyscraper || exit 2
 wget -q -O - https://raw.githubusercontent.com/muldjord/skyscraper/master/update_skyscraper.sh | bash
 scraper_cmd=$(realpath "Skyscraper")
 sed "s|scraper_cmd=.*|scraper_cmd='$scraper_cmd'|" -i $pegasarch_path/config.txt
