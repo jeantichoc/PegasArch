@@ -47,9 +47,15 @@ if [[ $menu == cloudsave ]] ; then
 fi
 
 
-if [[ $menu == install_dependencies ]] ; then
+if [[ $menu == install-dependencies ]] ; then
   shift
   "$pegasarch_path/install-dependencies.sh" "$@"
+  install_libretro_cores
+  exit $?
+fi
+
+if [[ $menu == install-cores ]] ; then
+  shift
   install_libretro_cores
   exit $?
 fi
