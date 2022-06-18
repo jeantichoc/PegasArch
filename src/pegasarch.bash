@@ -224,12 +224,12 @@ function configure_retroarch () {
   cp "$retroarch_superconf" "$retroarch_superconf_to_use"
   if [[ $emulator_saves ]] ; then
     mkdir -p $emulator_saves
-    sed "s|.*savefile_directory *=.*|savefile_directory = $emulator_saves|"   -i "$retroarch_superconf_to_use"
+    sed "s|^# *savefile_directory *= *PEGASARCH *$|savefile_directory = $emulator_saves|"   -i "$retroarch_superconf_to_use"
   fi
 
   if [[ $emulator_states ]] ; then
     mkdir -p $emulator_states
-    sed "s|.*savestate_directory *=.*|savestate_directory = $emulator_states|" -i "$retroarch_superconf_to_use"
+    sed "s|^# *savestate_directory *= *PEGASARCH *$|savestate_directory = $emulator_states|" -i "$retroarch_superconf_to_use"
   fi
 }
 
