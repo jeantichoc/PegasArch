@@ -1,8 +1,8 @@
 
 # Load first part of the config.txt as a bash pegasarch
 pegasarch_conf="$pegasarch_path/config.txt"
-for line in "$(cat "$pegasarch_conf"  | sed -e '/#########/,$d' | grep -v "^#"  )" ; do
-  eval "$line"
+for pegasarch_conf_line in "$(cat "$pegasarch_conf"  | sed -e '/###############################################/,$d' | grep -v "^#"  )" ; do
+  eval "$pegasarch_conf_line"
 done
 
 
