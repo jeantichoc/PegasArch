@@ -1,0 +1,27 @@
+PegasArch                                  General Commands Manual                           PegasArch
+
+NAME
+     PegasArch – helper for ubuntu + retroarch + rclone + pegasus
+
+SYNOPSIS
+  PegasArch [command]
+
+COMMANDS:
+
+  launch <rom> <core>:
+    use to start a game with a specific core in retroarch
+
+  refresh:
+    sync with cloud and scrap new roms
+
+  scrap:
+    only scrap new roms
+
+  cloud:
+    sync roms with cloud
+
+  cloudsave:
+    sync saves with cloud
+
+  install-cores:
+    install cores in config.txt if not found
