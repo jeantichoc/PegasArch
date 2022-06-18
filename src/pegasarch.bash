@@ -119,12 +119,12 @@ function rclone_mount () {
 }
 
 function sync_save () {
-  if [[ $emulator_cloud_saves ]] ; then
+  if [[ $emulator_cloud_saves && $emulator_saves ]] ; then
     rclone_bisync $emulator_cloud_saves $emulator_saves
   else
     echo \$emulator_cloud_saves not set in config.txt, nothing to sync
   fi
-  if [[ $emulator_cloud_states ]] ; then
+  if [[ $emulator_cloud_states && $emulator_states ]] ; then
     rclone_bisync $emulator_cloud_states $emulator_states
   else
     echo \$emulator_cloud_states not set in config.txt, nothing to sync
