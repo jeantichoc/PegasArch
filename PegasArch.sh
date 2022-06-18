@@ -77,5 +77,5 @@ if [[ $(is_empty "$pegasarch_path/metadatas") == true ]] ; then
   pegasarch_scrap "$@"
 fi
 
-sync_save
+sync_save &
 flatpak run org.pegasus_frontend.Pegasus &
