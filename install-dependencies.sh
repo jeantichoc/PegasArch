@@ -47,7 +47,7 @@ echo.blue "installing retroarch ..."
 sudo add-apt-repository ppa:libretro/stable  -y >/dev/null
 sudo add-apt-repository ppa:libretro/testing -y >/dev/null
 sudo apt-get -qq --assume-yes install retroarch        || handle_error "install retroarch"
-
+retroarch --version
 
 ##### Pegasus (front-end)
 echo.blue "installing pegasus ..."
