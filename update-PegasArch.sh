@@ -82,7 +82,7 @@ while true; do
     read -p "Do you wish to install dependencies (y/n)? " yn </dev/tty
     case $yn in
         [Yy]* )
-          bash install_dependencies.sh || handle_error "install"
+          bash install-dependencies.sh || handle_error "install"
           break
           ;;
         [Nn]* )
