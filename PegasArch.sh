@@ -72,7 +72,7 @@ if [[ $menu ]] ; then
 fi
 
 
-check_table
+check_table || exit 42
 
 if [[ $(dir_empty_or_absent "$pegasarch_path/metadatas") == true ]] ; then
   install_libretro_cores || exit 1

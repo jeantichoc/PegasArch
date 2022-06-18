@@ -381,7 +381,8 @@ function dir_empty_or_absent() {
     fi
     echo true
   fi
-  return true
+  echo true
+  return
 }
 
 
