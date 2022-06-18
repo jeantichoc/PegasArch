@@ -54,7 +54,7 @@ fi
 
 if [[ $menu == help ]] ; then
   cat $help.txt "$pegasarch_path/resources/help.txt"
-  exit $0
+  exit 0
 fi
 
 
