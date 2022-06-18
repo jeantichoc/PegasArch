@@ -62,11 +62,11 @@ mkdir -p "$pegasarch_path/skyscraper" || exit 1
 cd "$pegasarch_path/skyscraper" || exit 2
 wget -q -O - https://raw.githubusercontent.com/muldjord/skyscraper/master/update_skyscraper.sh | bash
 scraper_cmd=$(realpath "Skyscraper")
-sed "s|scraper_cmd=.*|scraper_cmd='$scraper_cmd'|" -i $pegasarch_path/config.txt
+sed "s|scraper_cmd=.*|scraper_cmd='$scraper_cmd'|" -i "$pegasarch_path/config.txt"
 
 
 #### Add PegasArch alias
 if [[ ! $(grep -F "$pegasarch" "$HOME/.bashrc") ]] ; then
   sed -i '/^ *alias *PegasArch=.*/d' "$HOME/.bashrc"
-  echo "alias PegasArch=\"$pegasarch\ >> "$HOME/.bashrc"
+  echo "alias PegasArch=\"$pegasarch\" >> "$HOME/.bashrc"
 fi
