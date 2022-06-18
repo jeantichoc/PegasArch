@@ -76,8 +76,8 @@ check_table || exit 42
 
 if [[ $(dir_empty_or_absent "$pegasarch_path/metadatas") == true ]] ; then
   install_libretro_cores || exit 1
-  pegasarch_cloud "$@"
-  pegasarch_scrap "$@"
+  pegasarch_cloud "$@"   || exit 2
+  pegasarch_scrap "$@"   || exit 3
 fi
 
 sync_save &
