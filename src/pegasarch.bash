@@ -386,7 +386,7 @@ function dir_empty_or_absent() {
 
 
 function rclone_config_if_none () {
-  if [[ $(rclone listremotes | sed '/^\s*$/d' | wc -l) >= 1 ]] ; then
+  if [[ $(rclone listremotes | sed '/^\s*$/d' | wc -l) > 0 ]] ; then
     return
   fi
   while true; do
@@ -404,22 +404,6 @@ function rclone_config_if_none () {
   done
 }
 
-
-function scraperlogin_if_none () {
-  if [[ $screenscraper_login ]] ; then
-    return
-  fi
-  local username
-  local password
-  read -p "screenscraper.fr username :" username </dev/tty
-  read -s -p "screenscraper.fr password :" password </dev/tty
-  echo
-  sed "s|^ *screenscraper_login=.*|screenscraper_login='$username:$password'|" -i "$pegasarch_conf"
-}
-
-function edit_table_if_empty () {
-  if [[ -z $(get_table) ]] ; then
-    echo the PegasArch table is empty
-    gedit "$pegasarch_conf"
-  fi
+function edit_table () {
+  gedit "$pegasarch_conf"
 }

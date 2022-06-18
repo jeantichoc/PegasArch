@@ -60,8 +60,7 @@ fi
 
 if [[ $menu == config ]] ; then
   rclone_config_if_none
-  scraperlogin_if_none
-  edit_table_if_empty
+  edit_table
   exit 0
 fi
 
