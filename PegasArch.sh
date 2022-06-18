@@ -72,7 +72,7 @@ if [[ $menu ]] ; then
 fi
 
 
-if [[ $(is_empty "$pegasarch_path/metadatas") == true ]] ; then
+if [[ $(dir_empty_or_absent "$pegasarch_path/metadatas") == true ]] ; then
   pegasarch_cloud "$@"
   pegasarch_scrap "$@"
 fi

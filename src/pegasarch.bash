@@ -244,8 +244,8 @@ function pegasarch_launch () {
 
   configure_retroarch
 
-  echo "$retroarch_cmd -f -L \"$core\" \"$file\" --appendconfig \"$retroarch_superconf_to_use"\"
-  $retroarch_cmd -f -L "$core" "$file" --appendconfig "$retroarch_superconf_to_use"
+  echo "\"$retroarch_cmd\" -f -L \"$core\" \"$file\" --appendconfig \"$retroarch_superconf_to_use"\"
+  "$retroarch_cmd" -f -L "$core" "$file" --appendconfig "$retroarch_superconf_to_use"
 
   sync_save &
 }
@@ -354,13 +354,14 @@ function install_libretro_cores () {
   return $error
 }
 
-function is_empty() {
+function dir_empty_or_absent() {
   if [[ -d $1 ]] ; then
     local lsA="$(ls -A "$1")" || return 1
     if [[ $lsA ]] ; then
       echo false
+      return
     fi
     echo true
   fi
-  return 1
+  return true
 }
