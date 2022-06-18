@@ -6,5 +6,5 @@ PegasArch is bash script to transform an [Ubuntu](https://ubuntu.com) machine in
 
 Copy/paste into a terminal :
 ```
-wget -q -O - https://raw.githubusercontent.com/jeantichoc/PegasArch/master/init/update.sh | bash
+wget -q -O - https://raw.githubusercontent.com/jeantichoc/PegasArch/master/update-PegasArch.sh | bash
 ```
