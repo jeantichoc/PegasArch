@@ -68,5 +68,5 @@ sed "s|scraper_cmd=.*|scraper_cmd='$scraper_cmd'|" -i "$pegasarch_path/config.tx
 #### Add PegasArch alias
 if [[ ! $(grep -F "$pegasarch" "$HOME/.bashrc") ]] ; then
   sed -i '/^ *alias *PegasArch=.*/d' "$HOME/.bashrc"
-  echo "alias PegasArch=\"$pegasarch\" >> "$HOME/.bashrc"
+  echo "alias PegasArch=\"$pegasarch\"" >> "$HOME/.bashrc"
 fi
