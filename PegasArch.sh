@@ -66,6 +66,11 @@ if [[ $menu == update ]] ; then
   exit $?
 fi
 
+if [[ $menu ]] ; then
+  echo.red unknown option $menu
+  exit 1
+fi
+
 
 if [[ $(is_empty "$pegasarch_path/metadatas") == true ]] ; then
   pegasarch_cloud "$@"
