@@ -1,7 +1,9 @@
 
 # Load first part of the config.txt as a bash pegasarch
 pegasarch_conf="$pegasarch_path/config.txt"
-eval $(cat "$pegasarch_conf"  | sed -e '/#########/,$d' | grep -v "^#"  )
+for line in "$(cat "$pegasarch_conf"  | sed -e '/#########/,$d' | grep -v "^#"  )" ; do
+  eval "$line"
+done
 
 
 ##### ADDITONALS CONFIGURATIONS ####
@@ -277,7 +279,7 @@ function scrap () {
     scraper_launcher="\"$pegasarch\" launch \"{file.path}\" "$core""
 
     echo.blue "getting metadas from screenscraper"
-    "$scraper_cmd"            \
+    "$scraper_cmd"          \
       -s screenscraper       \
       -u $screenscraper_login \
       -p "$platform"           \
@@ -286,7 +288,7 @@ function scrap () {
 
 
     echo.blue "generate metadas file for pegasus"
-    "$scraper_cmd"       \
+    "$scraper_cmd"     \
       -f "$frontend"    \
       -o "$metadir"      \
       -g "$metadir"       \
