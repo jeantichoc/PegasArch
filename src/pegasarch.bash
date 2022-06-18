@@ -35,24 +35,28 @@ function echo.blue () {
   echo -e "\033[1;34m$*\033[0m"
 }
 
+function get_table () {
+  grep -v "^#" "$pegasarch_conf" | grep ".*|.*|.*|.*|.*|.*|.*"
+}
+
 
 function get_conf () {
-  grep -v "^#" "$pegasarch_conf" | grep "|" | grep -Ei "^ *$1 *\|"
+  get_table | grep -Ei "^ *$1 *\|"
 }
 
 
 function get_all_ids () {
-  grep -v "^#" "$pegasarch_conf" | grep "|" | cut -d '|' -f 1 | trim
+  get_table | cut -d '|' -f 1 | trim
 }
 
 
 function get_ids_to_sync () {
-  grep -v "^#" "$pegasarch_conf" | grep -Ei "\| *sync *\|" | cut -d '|' -f $columm_id | trim
+  get_table | grep -Ei "\| *sync *\|" | cut -d '|' -f $columm_id | trim
 }
 
 
 function get_ids_to_mount () {
-  grep -v "^#" "$pegasarch_conf" | grep -Ei "\| *mount *\|" | cut -d '|' -f $columm_id | trim
+  get_table | grep -Ei "\| *mount *\|" | cut -d '|' -f $columm_id | trim
 }
 
 
@@ -353,6 +357,12 @@ function check_rclone () {
   fi
 }
 
+function check_table () {
+  if [[ -z $(get_table) ]] ; then
+    echo.red PegasArch table is empty
+  fi
+}
+
 
 function install_libretro_cores () {
   local error=0
@@ -372,4 +382,44 @@ function dir_empty_or_absent() {
     echo true
   fi
   return true
+}
+
+
+function rclone_config_if_none () {
+  if [[ $(rclone listremotes | sed '/^\s*$/d' | wc -l) >= 1 ]] ; then
+    return
+  fi
+  while true; do
+      read -p "Do you wish to configure rclone (y/n)? " yn </dev/tty
+      case $yn in
+          [Yy]* )
+            rclone config
+            break
+            ;;
+          [Nn]* )
+            break
+            ;;
+          * ) echo "Please answer yes or no.";;
+      esac
+  done
+}
+
+
+function scraperlogin_if_none () {
+  if [[ $screenscraper_login ]] ; then
+    return
+  fi
+  local username
+  local password
+  read -p "screenscraper.fr username :" username </dev/tty
+  read -s -p "screenscraper.fr password :" password </dev/tty
+  echo
+  sed "s|^ *screenscraper_login=.*|screenscraper_login='$username:$password'|" -i "$pegasarch_conf"
+}
+
+function edit_table_if_empty () {
+  if [[ -z $(get_table) ]] ; then
+    echo the PegasArch table is empty
+    gedit "$pegasarch_conf"
+  fi
 }

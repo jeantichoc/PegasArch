@@ -58,12 +58,22 @@ if [[ $menu == help ]] ; then
 fi
 
 
+if [[ $menu == config ]] ; then
+  rclone_config_if_none
+  scraperlogin_if_none
+  edit_table_if_empty
+  exit 0
+fi
+
+
 if [[ $menu ]] ; then
   echo.red unknown option $menu
   cat $help.txt "$pegasarch_path/resources/help.txt"
   exit 1
 fi
 
+
+check_table
 
 if [[ $(dir_empty_or_absent "$pegasarch_path/metadatas") == true ]] ; then
   install_libretro_cores || exit 1
