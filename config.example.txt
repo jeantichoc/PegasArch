@@ -1,0 +1,38 @@
+# PegasArch config file
+# The first part are bash variables that will be use
+# The second part is the config table for roms, cores, cloud config
+
+# login:password for https://www.screenscraper.fr
+screenscraper_login=""
+
+# Optional variables to force language of metadatas
+#scraper_lang="fr"
+#scraper_region="fr"
+
+# Uncomment and define to activate cloud saves
+#emulator_saves="$HOME/.config/retroarch/saves"
+#emulator_cloud_saves="OneDrive:Documents/Retroarch/saves"
+#emulator_states="$HOME/.config/retroarch/states"
+#emulator_cloud_states="OneDrive:Documents/Retroarch/states"
+
+frontend_conf="$HOME/.var/app/org.pegasus_frontend.Pegasus/config/pegasus-frontend"
+scraper_cmd="$HOME/GitHub/skyscraper/Skyscraper"
+retroarch_cmd="retroarch"
+
+# PegasArch configuration table
+# rclone path and rclone mode are optionals
+# Lines with # will be ignore
+# name/id         | skyscraper   | retroarch core         | games path                   | rclone path (optional)                      | rclone mode |
+######################################################################################################################################################
+#Super Nintendo   | snes         | bsnes_mercury_balanced | $HOME/Games/Super Nintendo   | OneDrive:Collections/Games/Super Nintendo   | sync        |
+#Game Boy         | gb           | gambatte               | $HOME/Games/Game Boy         | OneDrive:Collections/Games/Game Boy         | sync        |
+#Game Boy Color   | gbc          | gambatte               | $HOME/Games/Game Boy Color   | OneDrive:Collections/Games/Game Boy Color   | sync        |
+#Game Boy Advance | gba          | mgba                   | $HOME/Games/Game Boy Advance | OneDrive:Collections/Games/Game Boy Advance | sync        |
+#Nintendo 64      | n64          | mupen64plus_next       | $HOME/Games/Nintendo 64      | OneDrive:Collections/Games/Nintendo 64      | sync        |
+#Nintendo         | nes          | nestopia               | $HOME/Games/Nintendo         | OneDrive:Collections/Games/Nintendo         | sync        |
+#Master System    | mastersystem | picodrive              | $HOME/Games/Master System    | OneDrive:Collections/Games/Master System    | sync        |
+#Game Gear        | gamegear     | picodrive              | $HOME/Games/Game Gear        | OneDrive:Collections/Games/Game Gear        | sync        |
+#Playstation      | psx          | duckstation            | $HOME/Games/Playstation      | OneDrive:Collections/Games/Playstation      | sync        |
+#Playstation 2    | ps2          | pcsx2                  | $HOME/Games/Playstation 2    | OneDrive:Collections/Games/Playstation 2    | mount       |
+#GameCube         | gc           | dolphin                | $HOME/Games/GameCube         | OneDrive:Collections/Games/GameCube         | mount       |
+#Saturn           | saturn       | mednafen_saturn        | $HOME/Games/Saturn           | OneDrive:Collections/Games/Saturn           | sync        |
