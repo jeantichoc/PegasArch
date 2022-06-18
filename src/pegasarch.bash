@@ -98,16 +98,20 @@ function rclone_sync () {
 
 function rclone_bisync () {
   local RESYNC=""
+  local err=
   if [[ ! -d "$2" ]] ; then
       mkdir -p "$2"
       RESYNC="--resync"
   fi
   echo rclone bisync "$1" "$2" $RESYNC
   rclone bisync "$1" "$2" $RESYNC
-  if [[ $? == 2 ]] ; then
+  err=$?
+  if [[ $err == 2 ]] ; then
     echo.blue "unsync, try with resync"
     rclone bisync "$1" "$2" --resync
+    err=$?
   fi
+  return $err
 }
 
 
@@ -120,12 +124,12 @@ function rclone_mount () {
 
 function sync_save () {
   if [[ $emulator_cloud_saves && $emulator_saves ]] ; then
-    rclone_bisync $emulator_cloud_saves $emulator_saves
+    rclone_bisync $emulator_cloud_saves $emulator_saves && echo.green "saves sync OK"
   else
     echo \$emulator_saves and \$emulator_cloud_saves not set in config.txt, nothing to sync
   fi
   if [[ $emulator_cloud_states && $emulator_states ]] ; then
-    rclone_bisync $emulator_cloud_states $emulator_states
+    rclone_bisync $emulator_cloud_states $emulator_states && echo.green "savestates sync OK"
   else
     echo \$emulator_states and \$emulator_cloud_states not set in config.txt, nothing to sync
   fi
