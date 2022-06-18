@@ -173,6 +173,7 @@ function install_core_if_required () {
   fi
 
   if [[ -f $core ]] ; then
+    echo $core OK
     return
   fi
 
@@ -184,6 +185,7 @@ function install_core_if_required () {
   fi
 
   if [[ -f $core_file ]] ; then
+    echo $core_file OK
     return
   fi
 
