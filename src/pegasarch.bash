@@ -360,6 +360,7 @@ function check_rclone () {
 function check_table () {
   if [[ -z $(get_table) ]] ; then
     echo.red PegasArch table is empty
+    return 1
   fi
 }
 
