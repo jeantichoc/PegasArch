@@ -309,7 +309,7 @@ function scrap () {
       $(lang_options) --flags unattend,nohints
 
     ln -sf "$metadir/metadata.pegasus.txt" "$frontend_conf/metafiles/pegasarch.$name.metadata.pegasus.txt"
-    ls -l "$frontend_conf/metafiles/$name.metadata.pegasus.txt"
+    ls -l "$frontend_conf/metafiles/pegasarch.$name.metadata.pegasus.txt"
 }
 
 
