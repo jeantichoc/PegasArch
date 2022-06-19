@@ -373,19 +373,6 @@ function install_libretro_cores () {
   return $error
 }
 
-function dir_empty_or_absent() {
-  if [[ -d $1 ]] ; then
-    local lsA="$(ls -A "$1/*/metadata.pegasus.txt")" || return 1
-    if [[ $lsA ]] ; then
-      echo false
-      return
-    fi
-    echo true
-  fi
-  echo true
-  return
-}
-
 
 function rclone_config_if_none () {
   if [[ $(rclone listremotes | sed '/^\s*$/d' | wc -l) > 0 ]] ; then
