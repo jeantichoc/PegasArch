@@ -74,7 +74,7 @@ fi
 
 check_table || exit 42
 
-if [[ -z $(ls -l "$pegasarch_path/metadatas/*/metadata.pegasus.txt" 2>/dev/null) ]] ; then
+if [[ -z $(ls "$pegasarch_path"/metadatas/*/metadata.pegasus.txt 2>/dev/null) ]] ; then
   echo.blue "No metadatas yet, let's refresh"
   install_libretro_cores || exit 1
   pegasarch_cloud "$@"   || exit 2
