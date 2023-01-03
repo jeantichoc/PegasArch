@@ -35,6 +35,7 @@ sudo apt-get -qq --assume-yes install cabextract       || handle_error "install 
 sudo apt-get -qq --assume-yes install curl             || handle_error "install curl"
 sudo apt-get -qq --assume-yes install git              || handle_error "install git"
 sudo apt-get -qq --assume-yes install qt5-default      || handle_error "install qt5-default"
+sudo apt-get -qq --assume-yes install libqt5xml5       || handle_error "install libqt5xml5"
 
 
 ##### rclone
