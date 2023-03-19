@@ -1,6 +1,6 @@
 #!/bin/bash
 
-org=jeantichoc
+org=jean-null
 app=PegasArch
 
 function echo.blue (){
